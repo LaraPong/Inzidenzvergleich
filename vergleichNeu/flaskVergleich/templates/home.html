@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <title>Document</title>
+</head>
+<body class="bg-green-100">
+
+    <div class="flex">
+      <div class="bg-gradient-to-r from-blue-200 to-green-200 m-8 p-6 shadow-lg w-full  rounded-lg border border-gray-200">
+          <img alt="Thoughtworks" id="tw-logo" width="153px" height="24px" src="https://www.thoughtworks.com/etc.clientlibs/thoughtworks/clientlibs/clientlib-site/resources/images/thoughtworks-logo.svg"
+               title="Thoughtworks" />
+          <p class="font-serif text-blue-900 text-xs text-left">
+            <span class="font-bold text-red-500">vergleichbar.eu</span> Einfaches Vergleichen von Inzidenzwerten  in unterschiedlichen Städten Europas
+          </p>
+      </div>
+    </div>
+<form class="relative">
+
+  <div class="grid justify-items-center">
+      <div class="text-blue-900">
+     <select id="country" name="country" class="m-4 border-4 border-double border-light-blue-500 border-opacity-25">
+      <option value="Deutschland">Deutschland</option>
+      <option value="Spanien">Spanien</option>
+      <option value="Großbritanien">Großbritanien</option>
+     </select>
+          <span class="font-bold  text-red-500 "> <------- </span><label for="country" class="text-blue-900 font-bold animate-pulse ">Land wählen</label><span class="font-bold  text-red-500"> -------> </span>
+
+     <select id="countr" name="countr" class="m-4 border-4 border-double border-light-blue-500 border-opacity-25">
+      <option value="Deutschland">Deutschland</option>
+      <option value="Spanien">Spanien</option>
+      <option value="Großbritanien">Großbritanien</option>
+    </select>
+      </div>
+     <div class="text-blue-900">
+     <select id="coun" name="coun" class="m-4 border-4 border-double border-light-blue-500 border-opacity-25">
+        <option value="Berlin">Berlin</option>
+        <option value="Brandenburg">Brandenburg</option>
+        <option value="Bremen">Bremen</option>
+     </select>
+         <span class="font-bold  text-red-500"> <------- </span><label for="country" class="text-blue-900 font-bold animate-pulse">Stadt wählen</label><span class="font-bold  text-red-500"> -------> </span>
+
+     <select id="count" name="count" class="m-4 border-4 border-double border-light-blue-500 border-opacity-25">
+        <option value="Berlin">Berlin</option>
+        <option value="Brandenburg">Brandenburg</option>
+        <option value="Bremen">Bremen</option>
+      </select>
+     </div>
+   </div>
+
+</form>
+
+    <div class="text-center cursor-pointer ">
+    <button type="button" class="shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-base font-bold px-6 py-2 rounded-lg text-center">Inzidenzwert einsehen</button>
+    </div>
+</body>
