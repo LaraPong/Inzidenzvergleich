@@ -65,7 +65,7 @@ def city_search(city1, city2):
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
-    formData = request.values                   
+    formData = request.values
     spacing = "<br ><br>"
     if request.method == 'POST':
 
@@ -73,9 +73,9 @@ def homepage():
         suchwort2 = str(formData.get('input2'))
         results = city_search(suchwort, suchwort2)
 
-        return render_template('homapage.html', results=results, suchwort=suchwort, suchwort2=suchwort2)
+        return render_template('homepage.html', results=results, suchwort=suchwort, suchwort2=suchwort2)
     else:
-        return render_template('homapage.html')
+        return render_template('homepage.html')
 
 
 if __name__ == "__main__":
