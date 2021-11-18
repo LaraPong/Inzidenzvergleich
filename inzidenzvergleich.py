@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 import requests, json
 
@@ -92,9 +92,9 @@ def city_search(city1, city2):
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
-    formData = requests.values                    # request bezieht sich auf javascript POST-request ABER wo hier einbinden?
+    formData = request.values                    # request bezieht sich auf javascript POST-request ABER wo hier einbinden?
     spacing = "<br ><br>"
-    if requests.method == 'POST':
+    if request.method == 'POST':
 
         suchwort = str(formData.get('input1'))
         suchwort2 = str(formData.get('input2'))
