@@ -22,6 +22,24 @@ def get_incidence(city_id):
 
 @app.route("/")
 def index():
-    inzidenz_stadt_1 = get_incidence(11001)
-    inzidenz_stadt_2 = get_incidence(11002)
-    return render_template('index.html', inzidenz_stadt_1 = inzidenz_stadt_1, inzidenz_stadt_2 = inzidenz_stadt_2)
+    return render_template('abeer.html', action_url='localhost:3000/show')
+
+@app.route("show")
+def show():
+    city_1 = requests.form.get('city_1')
+    city_2 = requests.form.get('city_2')
+
+    if(city_1 == 'Berlin'):
+        incidence_1 = get_incidence(11)
+    elif(city_1 == 'München'):
+        incidence_1 = get_incidence(9162)
+    elif(city_1 == 'Hamburg'):
+        incidence_1 = get_incidence(2000)
+    elif(city_1 == 'Köln')
+        incidence_1 = get_incidence(5315)
+    frankfurt = get_incidence(6412)
+    stuttgart = get_incidence(8111)
+    duesseldorf = get_incidence(5111)
+    dortmund = get_incidence(5913)
+    essen = get_incidence(5113)
+    return render_template('show.html', berlin = berlin, hamburg = hamburg, cologne = cologne)

@@ -22,14 +22,6 @@ def get_incidence(city_id):
 
 @app.route("/")
 def index():
-    berlin = get_incidence(11)
-    munich = get_incidence(9162)
-    hamburg = get_incidence(2000)
-    cologne = get_incidence(5315)
-    frankfurt = get_incidence(6412)
-    stuttgart = get_incidence(8111)
-    duesseldorf = get_incidence(5111)
-    dortmund = get_incidence(5913)
-    essen = get_incidence(5113)
-    return render_template('dummy_frontend.html', berlin = berlin, hamburg = hamburg, cologne = cologne)
-
+    inzidenz_stadt_1 = get_incidence(11001)
+    inzidenz_stadt_2 = get_incidence(11002)
+    return render_template('index.html', inzidenz_stadt_1 = inzidenz_stadt_1, inzidenz_stadt_2 = inzidenz_stadt_2)
