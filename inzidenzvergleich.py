@@ -65,7 +65,7 @@ def city_search(city1, city2):
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
-    formData = request.values                    # request bezieht sich auf javascript POST-request ABER wo hier einbinden?
+    formData = request.values                   
     spacing = "<br ><br>"
     if request.method == 'POST':
 
