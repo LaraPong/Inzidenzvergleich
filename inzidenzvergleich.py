@@ -21,33 +21,6 @@ def get_incidence(city_id):
     return incidence
 
 
-#@app.route("/")  # ACHTUNG derzeit doppelt bei def homepage
-#
-#def index():
-#    berlin = get_incidence(11)
-#    munich = get_incidence(9162)
-#    hamburg= get_incidence(2000)
-#    cologne = get_incidence(5315)
-#    frankfurt = get_incidence(6412)
-#    stuttgart = get_incidence(8111)
-#    duesseldorf = get_incidence(5111)
-#    dortmund = get_incidence(5913)
-#    essen = get_incidence(5113)
-
-#    dict={}
-#    dict['Berlin'] =berlin
-#    dict['München'] = munich
-#    dict['Hamburg'] = hamburg
-#    dict['Köln'] = cologne
-#    dict['Frankfurt'] = frankfurt
-#    dict['Stuttgart'] = stuttgart
-#    dict['Düsseldorf'] = duesseldorf
-#    dict['Dortmund'] = dortmund
-#    dict['Essen'] = essen
-
-#    return render_template('dummy_frontend.html', berlin = berlin, hamburg = hamburg, cologne = cologne)
-
-
 # Funktion ruft Inzidenzen für 10 gr Städte auf und speichert sie in dictionary
 
 def getBigCities():
