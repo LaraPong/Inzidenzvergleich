@@ -30,29 +30,23 @@
       <p for="country" class="text-blue-900 font-bold animate-pulse text-center">Zeitraum wählen</p>
     <div class="text-center cursor-pointer ">
        ´ <input  type="submit" value="Heute"  class="shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/6 rounded-lg text-center">
-         <input  type="submit"  value="Vor 7 Tage"  class="shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/6 rounded-lg text-center">
+         <input  type="submit"  value="7 Tage Trend"  class="shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/6 rounded-lg text-center">
     </div>
 </form>
 
-   <h4 class="font-normal pl-12 text-base text-red-500"  >Inzidenzwert für Ihre Suche:
-
-       <span class=" text-blue-900" id="b1"></span></h4>
+   <h4 class="font-normal pl-12 text-base text-red-500"  >Inzidenzwert für Ihre Suche:</h4>
 
 
-   <ul id="res7t">
+   <div id="res7t">
        {% for result in results %}
-        <li class=" font-bold" >
+        <div class=" font-bold" >
          {{ result}}
-        </li>
+        </div>
        {% endfor %}
-   </ul>
-    <div class="pl-12 text-red-500"> Zeit für Suche ist:  {{seconds}}</div>
+   </div>
 </body>
 
 <script>
-
-
-
 
 
 
