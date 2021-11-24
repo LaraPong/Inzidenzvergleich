@@ -24,28 +24,22 @@ def get_incidence(city_id):
 # Funktion ruft Inzidenzen für 10 gr Städte auf und speichert sie in dictionary
 
 def getBigCities():
-    berlin = get_incidence(11)
-    munich = get_incidence(9162)
-    hamburg= get_incidence(2000)
-    cologne = get_incidence(5315)
-    frankfurt = get_incidence(6412)
-    stuttgart = get_incidence(8111)
-    duesseldorf = get_incidence(5111)
-    dortmund = get_incidence(5913)
-    essen = get_incidence(5113)
-
-    dict={}
-    dict['Berlin'] =berlin
-    dict['München'] = munich
-    dict['Hamburg'] = hamburg
-    dict['Köln'] = cologne
-    dict['Frankfurt'] = frankfurt
-    dict['Stuttgart'] = stuttgart
-    dict['Düsseldorf'] = duesseldorf
-    dict['Dortmund'] = dortmund
-    dict['Essen'] = essen
-
-    return dict
+    cities_incidences = {}
+    
+    big_cities = {# Das irgendwann direkt aus Datenbank oder Tabelle ablesen
+      'Berlin': 11,
+      'München': 9162,
+      'Hamburg': 2000,
+      'Köln': 5315,
+      'Frankfurt': 6412,
+      'Stuttgart': 8111,
+      'Düsseldorf': 5111,
+      'Dortmund': 5913,
+      'Essen': 5113 }
+    
+    for key, value in big_cities.items():
+        cities_incidences[key] = get_incidence(value)
+    return cities_incidences
 
 city_dict = getBigCities()
 
@@ -63,12 +57,18 @@ def city_search(city1, city2):
 
     return list
 
+def tableGetDate():
+    #ToDo: Implement Database Call
+    
+    return "1.1.2011"
+
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
     formData = request.values
-    spacing = "<br ><br>"
-    if request.method == 'POST':
+    if (request.method == 'POST' and formData.get('freshData')):
 
+        return render_template('homepage.html', date = tableGetDate()) #ToDo: Persist data from respective other if condition, with hidden fields? Multi-page-app?
+    elif (request.method == 'POST' and formData.get('freshData')):
         suchwort = str(formData.get('input1'))
         suchwort2 = str(formData.get('input2'))
         results = city_search(suchwort, suchwort2)
