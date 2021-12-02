@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 import requests, json
 
@@ -20,26 +20,51 @@ def get_incidence(city_id):
     incidence = resultjson['features'][0]['attributes']['Inz7T']
     return incidence
 
-@app.route("/")
-def index():
-    return render_template('abeer.html', action_url='localhost:3000/show')
+def getBigCities():
+    cities_incidences = {}
+    
+    big_cities = {# Das irgendwann direkt aus Datenbank oder Tabelle ablesen
+      'Berlin': 11,
+      'München': 9162,
+      'Hamburg': 2000,
+      'Köln': 5315,
+      'Frankfurt': 6412,
+      'Stuttgart': 8111,
+      'Düsseldorf': 5111,
+      'Dortmund': 5913,
+      'Essen': 5113 }
+    
+    for key, value in big_cities.items():
+        cities_incidences[key] = get_incidence(value)
+    return cities_incidences
 
-@app.route("show")
-def show():
-    city_1 = requests.form.get('city_1')
-    city_2 = requests.form.get('city_2')
+city_dict = getBigCities()
 
-    if(city_1 == 'Berlin'):
-        incidence_1 = get_incidence(11)
-    elif(city_1 == 'München'):
-        incidence_1 = get_incidence(9162)
-    elif(city_1 == 'Hamburg'):
-        incidence_1 = get_incidence(2000)
-    elif(city_1 == 'Köln')
-        incidence_1 = get_incidence(5315)
-    frankfurt = get_incidence(6412)
-    stuttgart = get_incidence(8111)
-    duesseldorf = get_incidence(5111)
-    dortmund = get_incidence(5913)
-    essen = get_incidence(5113)
-    return render_template('show.html', berlin = berlin, hamburg = hamburg, cologne = cologne)
+def city_search(city1, city2):
+    list = []
+
+    for key, value in city_dict.items():
+        if city1 in key:
+            list.append(city1)
+            list.append(value)
+
+        if city2 in key:
+            list.append(city2)
+            list.append(value)
+
+    return list
+
+@app.route("/", methods=['GET', 'POST'])
+def homepage():
+    formData = request.values
+    if (request.method == 'POST' and formData.get('freshData')):
+        return render_template('homepage.html', results=results, suchwort=suchwort, suchwort2=suchwort2)
+    else:
+        return render_template('homepage.html')
+
+
+if __name__ == "__main__":
+    app.debug = True
+    app.run()
+
+ 
