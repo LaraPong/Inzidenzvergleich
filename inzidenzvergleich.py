@@ -50,18 +50,16 @@ def getBigCities():
 city_dict = getBigCities()
 
 def city_search(city1, city2):
-    list = []
+    info = {}
 
     for key, value in city_dict.items():
         if city1 in key:
-            list.append(city1)
-            list.append(value)
+            info.update({city1: value})
 
         if city2 in key:
-            list.append(city2)
-            list.append(value)
+            info.update({city2: value})
+    return (info)
 
-    return list
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
@@ -73,11 +71,16 @@ def homepage():
         suchwort2 = str(formData.get('input2'))
         results = city_search(suchwort, suchwort2)
 
-        return render_template('homepage.html', results=results, suchwort=suchwort, suchwort2=suchwort2)
+        #labels = [suchwort, suchwort2]
+        
+        xwerte = [v for v in results.keys()]
+        ywerte = [x for x in results.values()]
+
+
+        return render_template('homepage.html', results=results, suchwort=suchwort, suchwort2=suchwort2, xwerte=xwerte, ywerte=ywerte)
     else:
         return render_template('homepage.html')
 
 
 if __name__ == "__main__":
-    app.debug = True
-    app.run()
+   app.run(debug=True)
