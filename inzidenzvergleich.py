@@ -77,6 +77,12 @@ def homepage():
     else:
         return render_template('homepage.html')
 
+def set_date(incidences, now):
+    incidences_new = incidences
+    for city in incidences_new:
+        city['date'] = now
+    return incidences_new
+
 
 if __name__ == "__main__":
     app.debug = True
