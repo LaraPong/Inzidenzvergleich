@@ -1,6 +1,12 @@
-
-
+import matplotlib
 import requests, json
+import matplotlib.pyplot as plt
+import matplotlib.pyplot as plot
+import pyqtgraph as pg
+import os
+
+
+
 
 def get_incidence(city_id):
     url = "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/rki_key_data_v/FeatureServer/0/query?"
@@ -41,26 +47,22 @@ def getBigCities():
     dict['Düsseldorf'] = duesseldorf
     dict['Dortmund'] = dortmund
     dict['Essen'] = essen
-
     return dict
 
 city_dict = getBigCities()
 
+
 def city_search(city1, city2):
-    list = []
+    info = {}
 
     for key, value in city_dict.items():
         if city1 in key:
-            list.append(city1)
-            list.append(value)
+            info.update({city1: value})
 
         if city2 in key:
-            list.append(city2)
-            list.append(value)
-
-    return (list)
+            info.update({city2: value})
+    return (info)
 
 
-
-
+diccity=city_search("Dortmund", "Essen")
 

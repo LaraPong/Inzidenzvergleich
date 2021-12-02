@@ -7,6 +7,8 @@
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <title>vergleichbar</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
 </head>
 
 <body class="bg-green-100">
@@ -20,34 +22,81 @@
           </p>
       </div>
     </div>
-<form  method="post" id="myForm" name="myForm" class="relative" action="#" >
+<form  method="post" id="myForm" name="myForm" class="relative" action="" >
     <div class="text-center cursor-pointer ">
          <label  for="stadt1" class="text-blue-900 font-bold " >Bitte Erste Stadt eingeben:</label>
-         <input  id="stadt1" type="text" name="input1" value="{{suchwort}}" class="m-4 border-4 border-double border-light-blue-500 border-opacity-25">
+         <input  id="stadt1" type="text" name="input1" value="{{suchwort}}" class="m-4 border-4 border-double border-light-blue-500 border-opacity-25"  required>
+
          <label  for="stadt2" class="text-blue-900 font-bold " > Bitte Zweite Stadt eingeben:</label>
-         <input  id="stadt2" type="text" name="input2"  value="{{suchwort2}}" class="m-4 border-4 border-double border-light-blue-500 border-opacity-25">
+         <input  id="stadt2" type="text" name="input2"  value="{{suchwort2}}" class="m-4 border-4 border-double border-light-blue-500 border-opacity-25" required >
+
+{% if error1 %}
+    <div class="text-xs text-red-700">
+    Error! {{ error1 }}
+    </div>
+        {% endif %}
+
+{% if error2 %}
+     <div class="text-xs text-red-700">
+    Error! {{ error2 }}
+    </div>
+{% endif %}
+
+
+
     </div>
       <p for="country" class="text-blue-900 font-bold animate-pulse text-center">Zeitraum wählen</p>
+
     <div class="text-center cursor-pointer ">
        ´ <input  type="submit" value="Heute"  class="shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/6 rounded-lg text-center">
-         <input  type="submit"  value="7 Tage Trend"  class="shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/6 rounded-lg text-center">
+         <input  type="submit"  value="Vor 7 Tage"  class="shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/6 rounded-lg text-center">
     </div>
 </form>
-
-   <h4 class="font-normal pl-12 text-base text-red-500"  >Inzidenzwert für Ihre Suche:</h4>
-
-
-   <div id="res7t">
-       {% for result in results %}
-        <div class=" font-bold" >
-         {{ result}}
-        </div>
-       {% endfor %}
+ <h4 class="font-bold  text-base text-red-500 text-center mt-3 " >Inzidenzwert für Ihre Suche</h4>
+    <div class="col-xs-10 col-sm-6 col-md-6" >
+   <div class="card card-style mb-6">
+    <div class="card-body">
+      <div class="chart-container" style="position: relative;">
+           <canvas id="myChart"></canvas>
+      </div>
+    </div>
    </div>
-</body>
+  </div>
+
 
 <script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {{xwerte | safe}},
+            datasets: [{
+                label: 'inzedenzwert',
+                data: {{ywerte | safe}},
+                fill: false,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
 
-
-
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
 </script>
+
+</body>
+
+
