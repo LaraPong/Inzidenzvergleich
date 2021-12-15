@@ -1,8 +1,27 @@
 from flask import Flask, render_template, request
+from flask_mysqldb import MySQL
 
 import requests, json
 
 app = Flask(__name__)
+
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'inzidenzen'
+app.config['MYSQL_SQL_MODE'] = 'NO_AUTO_VALUE_ON_ZERO'
+
+@app.before_first_request
+def make_tables():
+    mysql = MySQL(app)
+    cur = mysql.connection.cursor()
+    query = "CREATE TABLE InzidenzenDeutschlandBerlin ( id int(11) NOT NULL, datum date NOT NULL, inzidenz float NOT NULL)"
+    cur.execute(query)
+    query = "INSERT INTO InzidenzenDeutschlandBerlin (id, datum, inzidenz) VALUES (1, '2021-11-18', 340.7)"
+    cur.execute(query)
+    query = "SELECT (inzidenz) FROM InzidenzenDeutschlandBerlin WHERE (id == 1)"
+    inzidenz = cur.execute(query)
+    print(f"ACHTUUUUNGGG INZIDENZZZZZ {inzidenz}")
 
 def get_incidence(city_id):
     url = "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/rki_key_data_v/FeatureServer/0/query?"
