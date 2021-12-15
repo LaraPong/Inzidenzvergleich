@@ -11,48 +11,68 @@
 </head>
 
 <body class="bg-green-100">
+
   <div class="flex">
-    <div class="bg-gradient-to-r from-blue-200 to-green-200 mb-2 m-8 pb-2 p-6 shadow-lg w-full  rounded-lg border border-gray-200">
+    <div class="bg-gradient-to-r from-blue-200 to-green-200 mb-0 sm:mb-2 m-2 sm:m-8 pb-0 sm:pb-2 p-1 sm:p-6 shadow-lg w-full  rounded-lg border border-gray-200">
         <img alt="Thoughtworks" id="tw-logo" width="153px" height="24px" src="https://www.thoughtworks.com/etc.clientlibs/thoughtworks/clientlibs/clientlib-site/resources/images/thoughtworks-logo.svg"
-              title="Thoughtworks" />
+             title="Thoughtworks" />
         <p class="font-serif text-blue-900 text-xs text-left">
-          <span class="font-bold text-red-500">vergleichbar.eu</span> Einfaches Vergleichen von Inzidenzwerten  in unterschiedlichen Städten Europas
+          <span class="font-bold text-red-500">vergleichbar.eu</span>Einfaches Vergleichen von Inzidenzwerten  in unterschiedlichen Städten Europas
         </p>
     </div>
   </div>
-  <form  method="post" id="myForm" name="myForm" class="relative" action="#">
-    <div class="text-center cursor-pointer ">
-      <label  for="stadt1" class="text-blue-900 font-bold " >Bitte erste Stadt eingeben:</label>
-      <input  id="stadt1" type="text" name="input1" value="{{suchwort}}" class="m-4 border-4 border-double border-light-blue-500 border-opacity-25">
-      <label  for="stadt2" class="text-blue-900 font-bold " > Bitte zweite Stadt eingeben:</label>
-      <input  id="stadt2" type="text" name="input2"  value="{{suchwort2}}" class="m-4 border-4 border-double border-light-blue-500 border-opacity-25">
-    </div> 
-    <p for="country" class="text-blue-900 font-bold animate-pulse text-center">Zeitraum wählen</p>
-    <div class="text-center cursor-pointer ">
-     ´ <input  type="submit" value="Heute"  class="shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/6 rounded-lg text-center">
-       <input  type="submit"  value="Vor 7 Tage"  class="shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/6 rounded-lg text-center">
-    </div>
-  </form>
-
-  <h4 class="font-normal pl-12 text-base text-red-500"  >Inzidenzwert für Ihre Suche: <span class=" text-blue-900" id="b1"></span></h4>
-
-  <div>
-    <div class="col-xs-10 col-sm-6 col-md-6" >
-      <div class="card card-style mb-6">
-        <div class="card-body">
-          <div class="chart-container" style="position: relative;">
-            <canvas id="myChart"></canvas>
-          </div>
-        </div>
+<form  method="post" id="myForm" name="myForm" class="relative" action="" >
+  <div class="grid grid-cols-1 place-items-center space-y-4  sm:grid sm:grid-cols-2 sm:justify-items-center gap-x-0 gap-y-0 ">
+      <div class="flex flex-col space-y-2  sm:flex sm:flex-row sm:items-center ">
+       <label  for="stadt1" class="text-blue-900 font-bold text-sm sm:text-base" >Bitte Erste Stadt eingeben:</label>
+       <input  id="stadt1" type="text" name="input1" value="{{suchwort}}" class=" sm:m-4 border-4 border-double border-light-blue-500 border-opacity-25"  required>
+          {% if error1 %}
+  <div class="text-xs text-red-700">
+  Error! {{ error1 }}
+  </div>
+      {% endif %}
+      </div>
+      <div class="flex flex-col space-y-2 sm:flex sm:flex-row sm:items-center">
+       <label  for="stadt2" class="text-blue-900 font-bold text-sm sm:text-base" > Bitte Zweite Stadt eingeben:</label>
+       <input  id="stadt2" type="text" name="input2"  value="{{suchwort2}}" class="sm:m-4 border-4 border-double border-light-blue-500 border-opacity-25" required >
+ {% if error2 %}
+          <div class="text-xs text-red-700">
+      Error! {{ error2 }}
+      </div>
+       {% endif %}
       </div>
 
-      <script>
-        var ctx = document.getElementById("myChart").getContext("2d");
-        var chart = new Chart(ctx, {
-          type: "bar",
-          data: {
-            labels: {{ xwerte | safe }},
-            datasets: [{
+  </div>
+
+
+
+
+
+    <p for="country" class="text-blue-900 font-bold animate-pulse text-center text-sm sm:text-base">Zeitraum wählen</p>
+  <div class="text-center cursor-pointer ">
+      <input  type="submit" value="Heute"  class="shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/3 sm:w-1/6 rounded-lg text-center">
+       <input  type="submit"  value="Vor 7 Tage"  class="shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/3 sm:w-1/6 rounded-lg text-center">
+  </div>
+</form>
+<h4 class="font-bold  text-red-500 text-center mt-3 text-sm sm:text-base" >Inzidenzwert für Ihre Suche</h4>
+  <div class="col-xs-10 col-sm-6 col-md-6" >
+ <div class="card card-style mb-6">
+  <div class="card-body">
+    <div class="chart-container" style="position: relative;">
+         <canvas id="myChart"></canvas>
+    </div>
+  </div>
+ </div>
+</div>
+   
+    <script>
+      var ctx = document.getElementById("myChart").getContext("2d");
+      var chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: {{ xwerte | safe }},
+          datasets: [
+            {
               label: "Inzidenzwerte",
               data: {{ ywerte | safe }},
               fill: false,

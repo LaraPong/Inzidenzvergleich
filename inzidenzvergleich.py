@@ -62,25 +62,31 @@ def tableGetDate():
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
-    formData = request.values
-    if (request.method == 'POST' and formData.get('freshData')):
-
-        return render_template('homepage.html', date = tableGetDate()) #ToDo: Persist data from respective other if condition, with hidden fields? Multi-page-app?
-    elif (request.method == 'POST' and formData.get('freshData')):
-        suchwort = str(formData.get('input1'))
-        suchwort2 = str(formData.get('input2'))
+    dict1 = getBigCities()
+    suchdic1 = [v for v in dict1.keys()]
+    if request.method == 'POST':
+        suchwort = request.form['input1']
+        suchwort2 = request.form['input2']
         results = city_search(suchwort, suchwort2)
-
-        #labels = [suchwort, suchwort2]
-        
         xwerte = [v for v in results.keys()]
         ywerte = [x for x in results.values()]
 
+        error1 = None
+        error2 = None
 
-        return render_template('homepage.html', results=results, suchwort=suchwort, suchwort2=suchwort2, xwerte=xwerte, ywerte=ywerte)
+        if suchwort not in suchdic1:
+            error1 = 'Stadt 1 nicht gültig'
+
+        if suchwort2 not in suchdic1:
+            error2 = 'Stadt 2 nicht gültig'
+
+        if error1 or error2:
+            return render_template('homepage.html', error1=error1, error2=error2, suchwort=suchwort, suchwort2=suchwort2)
+
+        return render_template('homepage.html', results=results, suchwort=suchwort, suchwort2=suchwort2, xwerte=xwerte,
+                               ywerte=ywerte)
     else:
         return render_template('homepage.html')
-
 
 if __name__ == "__main__":
    app.run(debug=True)
