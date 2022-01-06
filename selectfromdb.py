@@ -9,6 +9,10 @@ app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'inzidenzen'
 app.config['MYSQL_SQL_MODE'] = 'NO_AUTO_VALUE_ON_ZERO'
+#Entsprechend anpassen, wenn auf Server:
+#IP-Adresse: siehe Slack
+#User: siehe Slack
+#Password User Root: siehe Slack
 
 mysql = MySQL(app)
 
