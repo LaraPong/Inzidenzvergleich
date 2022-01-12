@@ -24,60 +24,69 @@ def get_incidence(city_id):
 # Funktion ruft Inzidenzen für 10 gr Städte auf und speichert sie in dictionary
 
 def getBigCities():
-    berlin = get_incidence(11)
-    munich = get_incidence(9162)
-    hamburg= get_incidence(2000)
-    cologne = get_incidence(5315)
-    frankfurt = get_incidence(6412)
-    stuttgart = get_incidence(8111)
-    duesseldorf = get_incidence(5111)
-    dortmund = get_incidence(5913)
-    essen = get_incidence(5113)
-
-    dict={}
-    dict['Berlin'] =berlin
-    dict['München'] = munich
-    dict['Hamburg'] = hamburg
-    dict['Köln'] = cologne
-    dict['Frankfurt'] = frankfurt
-    dict['Stuttgart'] = stuttgart
-    dict['Düsseldorf'] = duesseldorf
-    dict['Dortmund'] = dortmund
-    dict['Essen'] = essen
-
-    return dict
+    cities_incidences = {}
+    
+    big_cities = {# Das irgendwann direkt aus Datenbank oder Tabelle ablesen
+      'Berlin': 11,
+      'München': 9162,
+      'Hamburg': 2000,
+      'Köln': 5315,
+      'Frankfurt': 6412,
+      'Stuttgart': 8111,
+      'Düsseldorf': 5111,
+      'Dortmund': 5913,
+      'Essen': 5113 }
+    
+    for key, value in big_cities.items():
+        cities_incidences[key] = get_incidence(value)
+    return cities_incidences
 
 city_dict = getBigCities()
 
 def city_search(city1, city2):
-    list = []
+    info = {}
 
     for key, value in city_dict.items():
         if city1 in key:
-            list.append(city1)
-            list.append(value)
+            info.update({city1: value})
 
         if city2 in key:
-            list.append(city2)
-            list.append(value)
+            info.update({city2: value})
+    return (info)
 
-    return list
+
+def tableGetDate():
+    #ToDo: Implement Database Call
+    
+    return "1.1.2011"
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
-    formData = request.values
-    spacing = "<br ><br>"
+    dict1 = getBigCities()
+    suchdic1 = [v for v in dict1.keys()]
     if request.method == 'POST':
-
-        suchwort = str(formData.get('input1'))
-        suchwort2 = str(formData.get('input2'))
+        suchwort = request.form['input1']
+        suchwort2 = request.form['input2']
         results = city_search(suchwort, suchwort2)
+        xwerte = [v for v in results.keys()]
+        ywerte = [x for x in results.values()]
 
-        return render_template('homepage.html', results=results, suchwort=suchwort, suchwort2=suchwort2)
+        error1 = None
+        error2 = None
+
+        if suchwort not in suchdic1:
+            error1 = 'Stadt 1 nicht gültig'
+
+        if suchwort2 not in suchdic1:
+            error2 = 'Stadt 2 nicht gültig'
+
+        if error1 or error2:
+            return render_template('homepage.html', error1=error1, error2=error2, suchwort=suchwort, suchwort2=suchwort2)
+
+        return render_template('homepage.html', results=results, suchwort=suchwort, suchwort2=suchwort2, xwerte=xwerte,
+                               ywerte=ywerte)
     else:
         return render_template('homepage.html')
 
-
 if __name__ == "__main__":
-    app.debug = True
-    app.run()
+   app.run(debug=True)
