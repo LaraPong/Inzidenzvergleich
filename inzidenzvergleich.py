@@ -70,6 +70,15 @@ def homepage():
         results = city_search(suchwort, suchwort2)
         xwerte = [v for v in results.keys()]
         ywerte = [x for x in results.values()]
+        # y1 , y2 inzidenzwert für je suchwort
+        y1= results[suchwort]
+        y2= results[suchwort2]
+        # st1, st2 beispiel für 7 Tag von inzidenzwert
+        st1= [150, 200 ,300,400,500,600,300]
+        st2= [500, 200 ,100,400,200,500,20]
+         # dat beispiel für datum
+        dat=["05","06","07","08","09","10","11"]
+
 
         error1 = None
         error2 = None
@@ -84,7 +93,7 @@ def homepage():
             return render_template('homepage.html', error1=error1, error2=error2, suchwort=suchwort, suchwort2=suchwort2)
 
         return render_template('homepage.html', results=results, suchwort=suchwort, suchwort2=suchwort2, xwerte=xwerte,
-                               ywerte=ywerte)
+                               ywerte=ywerte, y1=y1, y2=y2, st1=st1, st2=st2, dat=dat)
     else:
         return render_template('homepage.html')
 
