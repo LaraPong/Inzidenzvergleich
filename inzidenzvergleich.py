@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
+from datetime import datetime
 
-import requests, json
+import requests, json, time
 
 app = Flask(__name__)
 
@@ -10,18 +11,6 @@ app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'inzidenzen'
 app.config['MYSQL_SQL_MODE'] = 'NO_AUTO_VALUE_ON_ZERO'
-
-@app.before_first_request
-def make_tables():
-    mysql = MySQL(app)
-    cur = mysql.connection.cursor()
-    query = "CREATE TABLE InzidenzenDeutschlandBerlin ( id int(11) NOT NULL, datum date NOT NULL, inzidenz float NOT NULL)"
-    cur.execute(query)
-    query = "INSERT INTO InzidenzenDeutschlandBerlin (id, datum, inzidenz) VALUES (1, '2021-11-18', 340.7)"
-    cur.execute(query)
-    query = "SELECT (inzidenz) FROM InzidenzenDeutschlandBerlin WHERE (id == 1)"
-    inzidenz = cur.execute(query)
-    print(f"ACHTUUUUNGGG INZIDENZZZZZ {inzidenz}")
 
 def get_incidence(city_id):
     url = "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/rki_key_data_v/FeatureServer/0/query?"
@@ -73,15 +62,26 @@ def city_search(city1, city2):
             info.update({city2: value})
     return (info)
 
-
-def tableGetDate():
-    #ToDo: Implement Database Call
-    
-    return "1.1.2011"
+#@app.before_first_request
+def refresh_tables(city_dict):
+    mysql = MySQL(app)
+    cur = mysql.connection.cursor()
+    today = datetime.today().strftime('%Y-%m-%d')
+    id_counter = 2
+    while True:
+        for key, value in city_dict.items():
+            table_city = key.lower().replace("ä","ae").replace("ö","oe").replace("ü","ue") #aus Städtenamen Tabellennamen machen
+            query = f"INSERT INTO inzidenzen.inzidenzen_deutschland_{table_city} (id, datum, inzidenz) VALUES ({id_counter}, {today}, {value})"
+            cur.execute(query)
+            id_counter += 1
+            print(id_counter)
+        time.sleep(3600*24) #einen Tag warten, bevor die Schleife wieder ausgeführt wird; funktioniert nicht! Mit "sched" probieren/threading!
+    #todo: zuletzt aktualisiert in frontend ausgeben
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
     dict1 = getBigCities()
+    refresh_tables(dict1)
     suchdic1 = [v for v in dict1.keys()]
     if request.method == 'POST':
         suchwort = request.form['input1']
