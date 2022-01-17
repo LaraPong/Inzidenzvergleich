@@ -128,5 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Intellij-Stuff
+#idea
 .idea
+
+#ipynb_checkpints
+.ipynb_checkpoints
