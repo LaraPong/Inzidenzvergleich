@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
-from datetime import datetime
+from datetime import datetime, timedelta
 
-import requests, json, time
+import requests, json, time, atexit
+from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
 
@@ -11,6 +12,7 @@ app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'inzidenzen'
 app.config['MYSQL_SQL_MODE'] = 'NO_AUTO_VALUE_ON_ZERO'
+mysql = MySQL(app)
 
 def get_incidence(city_id):
     url = "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/rki_key_data_v/FeatureServer/0/query?"
@@ -48,7 +50,6 @@ def getBigCities():
     for key, value in big_cities.items():
         cities_incidences[key] = get_incidence(value)
     return cities_incidences
-
 city_dict = getBigCities()
 
 def city_search(city1, city2):
@@ -62,50 +63,123 @@ def city_search(city1, city2):
             info.update({city2: value})
     return (info)
 
-#@app.before_first_request
-def refresh_tables(city_dict):
-    mysql = MySQL(app)
+@app.before_first_request
+def refresh_tables():
+    city_dict = getBigCities()
     cur = mysql.connection.cursor()
     today = datetime.today().strftime('%Y-%m-%d')
-    id_counter = 2
-    while True:
-        for key, value in city_dict.items():
-            table_city = key.lower().replace("ä","ae").replace("ö","oe").replace("ü","ue") #aus Städtenamen Tabellennamen machen
-            query = f"INSERT INTO inzidenzen.inzidenzen_deutschland_{table_city} (id, datum, inzidenz) VALUES ({id_counter}, {today}, {value})"
-            cur.execute(query)
-            id_counter += 1
-            print(id_counter)
-        time.sleep(3600*24) #einen Tag warten, bevor die Schleife wieder ausgeführt wird; funktioniert nicht! Mit "sched" probieren/threading!
-    #todo: zuletzt aktualisiert in frontend ausgeben
+    delete_date = (datetime.today() - timedelta(7)).strftime('%Y-%m-%d')
+    print("I'm running")
+    for key, value in city_dict.items():
+        table_city = key.lower().replace("ä","ae").replace("ö","oe").replace("ü","ue") #aus Städtenamen Tabellennamen machen
+        query = f"INSERT INTO inzidenzen_deutschland_{table_city} (datum, inzidenz) VALUES ({today}, {value})"
+        cur.execute(query)
+        mysql.connection.commit()
+        query_delete = f"DELETE FROM inzidenzen_deutschland_{table_city} WHERE datum < {delete_date}"
+        cur.execute(query_delete) #todo: Return last refreshed and post to website
+
+#scheduler = BackgroundScheduler()
+#scheduler.add_job(func=refresh_tables, trigger="interval", seconds=60)
+#scheduler.start()
+
+#atexit.register(lambda: scheduler.shutdown())
+    
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
-    dict1 = getBigCities()
-    refresh_tables(dict1)
-    suchdic1 = [v for v in dict1.keys()]
+    formData = request.values
+
     if request.method == 'POST':
-        suchwort = request.form['input1']
-        suchwort2 = request.form['input2']
-        results = city_search(suchwort, suchwort2)
-        xwerte = [v for v in results.keys()]
-        ywerte = [x for x in results.values()]
+        suchwort = str(formData.get('input1'))
+        suchwort2 = str(formData.get('input2'))
+        cursor = mysql.connection.cursor()
+        if suchwort=='Berlin':
+            select_inzidence_berlin = "SELECT inzidenz FROM inzidenzen_deutschland_berlin "
+            cursor.execute(select_inzidence_berlin)
+            results = cursor.fetchall()
 
-        error1 = None
-        error2 = None
+        if suchwort2 == 'Berlin':
+            select_inzidence_berlin = "SELECT inzidenz FROM inzidenzen_deutschland_berlin "
+            cursor.execute(select_inzidence_berlin)
+            results2 = cursor.fetchall()
 
-        if suchwort not in suchdic1:
-            error1 = 'Stadt 1 nicht gültig'
+        if suchwort=='Essen':
+            select_inzidence_essen = "SELECT datum, inzidenz FROM inzidenzen_deutschland_essen"
+            cursor.execute(select_inzidence_essen)
+            results = cursor.fetchall()
 
-        if suchwort2 not in suchdic1:
-            error2 = 'Stadt 2 nicht gültig'
+        if suchwort2 == 'Essen':
+            select_inzidence_essen = "SELECT datum, inzidenz FROM inzidenzen_deutschland_essen"
+            cursor.execute(select_inzidence_essen)
+            results2 = cursor.fetchall()
 
-        if error1 or error2:
-            return render_template('homepage.html', error1=error1, error2=error2, suchwort=suchwort, suchwort2=suchwort2)
+        if suchwort == 'Bremen':
+            select_inzidence_bremen = "SELECT datum, inzidenz FROM inzidenzen_deutschland_bremen"
+            cursor.execute(select_inzidence_bremen)
+            results = cursor.fetchall()
 
-        return render_template('homepage.html', results=results, suchwort=suchwort, suchwort2=suchwort2, xwerte=xwerte,
-                               ywerte=ywerte)
+        if suchwort2 == 'Bremen':
+            select_inzidence_bremen = "SELECT datum, inzidenz FROM inzidenzen_deutschland_bremen"
+            cursor.execute(select_inzidence_bremen)
+            results2 = cursor.fetchall()
+
+        if suchwort=='Dortmund':
+            select_inzidence_dortmund = "SELECT datum, inzidenz FROM inzidenzen_deutschland_dortmund"
+            cursor.execute(select_inzidence_dortmund)
+            results = cursor.fetchall()
+
+        if suchwort2 == 'Dortmund':
+            select_inzidence_dortmund = "SELECT datum, inzidenz FROM inzidenzen_deutschland_dortmund"
+            cursor.execute(select_inzidence_dortmund)
+            results2 = cursor.fetchall()
+
+        if suchwort=='Dresden':
+            select_inzidence_dresden = "SELECT datum, inzidenz FROM inzidenzen_deutschland_dresden"
+            cursor.execute(select_inzidence_dresden)
+            results = cursor.fetchall()
+
+        if suchwort2 == 'Dresden':
+            select_inzidence_dresden = "SELECT datum, inzidenz FROM inzidenzen_deutschland_dresden"
+            cursor.execute(select_inzidence_dresden)
+            results2 = cursor.fetchall()
+
+        if suchwort=='Düsseldorf':
+            select_inzidence_duesseldorf = "SELECT datum, inzidenz FROM inzidenzen_deutschland_duesseldorf"
+            cursor.execute(select_inzidence_duesseldorf)
+            results = cursor.fetchall()
+
+        if suchwort=='Erfurt':
+            select_inzidence_erfurt = "SELECT datum, inzidenz FROM inzidenzen_deutschland_erfurt"
+            cursor.execute(select_inzidence_erfurt)
+            results = cursor.fetchall()
+
+        if suchwort=='Frankfurt':
+            select_inzidence_frankfurt = "SELECT datum, inzidenz FROM inzidenzen_deutschland_frankfurt"
+            cursor.execute(select_inzidence_frankfurt)
+            results = cursor.fetchall()
+
+        if suchwort=='Hamburg':
+            select_inzidence_hamburg = "SELECT datum, nzidenz FROM inzidenzen_deutschland_hamburg"
+            cursor.execute(select_inzidence_hamburg)
+            results = cursor.fetchall()
+
+        if suchwort=='Hannover':
+            select_inzidence_hannover = "SELECT datum, inzidenz FROM inzidenzen_deutschland_hannover"
+            cursor.execute(select_inzidence_hannover)
+            results = cursor.fetchall()
+
+        select_berlin = "SELECT datum, inzidenz FROM inzidenzen_deutschland_berlin"
+        berlin = cursor.execute(select_berlin)
+        select_essen = "SELECT datum, inzidenz FROM inzidenzen_deutschland_essen"
+        essen = cursor.execute(select_essen)
+
+        dict = {}
+        dict['Berlin'] = berlin
+        dict['Essen'] = essen
+
+        return render_template('inzidenzdata.html', results=results, results2=results2, suchwort=suchwort, suchwort2=suchwort2)
     else:
-        return render_template('homepage.html')
+        return render_template('inzidenzdata.html')
 
 if __name__ == "__main__":
    app.run(debug=True)
