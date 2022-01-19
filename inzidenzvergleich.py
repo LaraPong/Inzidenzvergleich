@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
 from datetime import datetime, timedelta
 
-import requests, json, time, atexit
+import requests, json, atexit
 from apscheduler.schedulers.background import BackgroundScheduler
 
 app = Flask(__name__)
@@ -13,6 +13,7 @@ app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'inzidenzen'
 app.config['MYSQL_SQL_MODE'] = 'NO_AUTO_VALUE_ON_ZERO'
 mysql = MySQL(app)
+today = ''
 
 def get_incidence(city_id):
     url = "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/rki_key_data_v/FeatureServer/0/query?"
@@ -78,12 +79,11 @@ def refresh_tables():
         query_delete = f"DELETE FROM inzidenzen_deutschland_{table_city} WHERE datum < {delete_date}"
         cur.execute(query_delete) #todo: Return last refreshed and post to website
 
-#scheduler = BackgroundScheduler()
-#scheduler.add_job(func=refresh_tables, trigger="interval", seconds=60)
-#scheduler.start()
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=refresh_tables, trigger="interval", seconds=3600*24)
+scheduler.start()
 
-#atexit.register(lambda: scheduler.shutdown())
-    
+atexit.register(lambda: scheduler.shutdown())
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
