@@ -137,7 +137,7 @@ def homepage():
             results = cursor.fetchall()
 
         if suchwort=='Hamburg':
-            select_inzidence_hamburg = "SELECT datum, nzidenz FROM inzidenzen_deutschland_hamburg"
+            select_inzidence_hamburg = "SELECT datum, inzidenz FROM inzidenzen_deutschland_hamburg"
             cursor.execute(select_inzidence_hamburg)
             results = cursor.fetchall()
 
@@ -169,9 +169,9 @@ def refresh_tables():
     for key, value in city_dict.items():
         table_city = key.lower().replace("ä","ae").replace("ö","oe").replace("ü","ue") #aus Städtenamen Tabellennamen machen
         query = f"INSERT INTO inzidenzen_deutschland_{table_city} (datum, inzidenz) VALUES (%s, %s)"
-        cur.execute(query, ({today}, {value}))
+        cur.execute(query, ({today}, {str(value)}))
         query_delete = f"DELETE FROM inzidenzen_deutschland_{table_city} WHERE datum < %s"
-        cur.execute(query_delete, ({delete_date}, ))
+        cur.execute(query_delete, ({delete_date}))
         mysql.connection.commit()
 
 if __name__ == "__main__":
