@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 import requests, json
 from requests import get
 from json import dumps
+import datetime as DT
 
 app = Flask(__name__)
 
@@ -23,33 +24,35 @@ def get_incidence(city_id):
     incidence = resultjson['features'][0]['attributes']['Inz7T']
     return incidence
 
-    # get_incidence Großbritanien
+    # get_dailyCases Großbritanien
 
-
-def get_incidence_uk(city_id):
+def get_dailyCases_uk (city_id, date):
+    
     if city_id == "E12000007":
         AREA_TYPE = "region"
     else:
         AREA_TYPE = "ltla"
-
+        
     ENDPOINT = "https://api.coronavirus.data.gov.uk/v1/data"
     AREA_CODE = city_id;
+    DATE = date
 
     filters = [
-        f"areaType={AREA_TYPE}",
-        f"areaCode={AREA_CODE}"
+         f"areaType={AREA_TYPE}",
+         f"areaCode={AREA_CODE}",
+         f"date={DATE}"
 
     ]
 
     structure = {
 
-        "dailyCases": "newCasesByPublishDate",
+        "dailyCases" : "newCasesByPublishDate",
     }
 
     api_params = {
         "filters": str.join(";", filters),
         "structure": dumps(structure, separators=(",", ":")),
-        "latestBy": "cumCasesByPublishDate"
+     
     }
 
     api_params["format"] = "json"
@@ -57,6 +60,31 @@ def get_incidence_uk(city_id):
     assert response.status_code == 200, f"Failed request for {fmt}: {response.text}"
     json_content = response.json()
     return json_content["data"][0]["dailyCases"]
+    
+    # get_incidence_uk hier wird die 7-Tage Inzidenz für UK aus den DailyCases berechnet 
+
+def get_incidence_uk (city_id, population):
+    today = DT.date.today()
+    date1 = today - DT.timedelta(days=1)
+    date2 = today - DT.timedelta(days=2)
+    date3 = today - DT.timedelta(days=3)
+    date4 = today - DT.timedelta(days=4)
+    date5 = today - DT.timedelta(days=5)
+    date6 = today - DT.timedelta(days=6)
+    date7 = today - DT.timedelta(days=7)
+
+    day1 = get_dailyCases_uk(city_id, date1)
+    day2 = get_dailyCases_uk(city_id, date2)
+    day3 = get_dailyCases_uk(city_id, date3)
+    day4 = get_dailyCases_uk(city_id, date4)
+    day5 = get_dailyCases_uk(city_id, date5)
+    day6 = get_dailyCases_uk(city_id, date6)
+    day7 = get_dailyCases_uk(city_id, date7)
+    
+    dailyCasesSum = day1 + day2 + day3 + day4 + day5 + day6 + day7
+    incidence = (dailyCasesSum / population) * 100000
+
+    return round(incidence, 1)
 
 
 # Funktion ruft Inzidenzen für 10 gr Städte auf und speichert sie in dictionary
@@ -64,19 +92,19 @@ def get_incidence_uk(city_id):
 def getBigCities():
     cities_incidences = {}
 
-    manchester = get_incidence_uk("E08000003")
-    leeds = get_incidence_uk("E08000035")
-    glasgow = get_incidence_uk("S12000049")
-    sheffield = get_incidence_uk("E08000019")
-    nottingham = get_incidence_uk("E06000018")
-    newcastleUponTyne = get_incidence_uk("E08000021")
-    portsmouth = get_incidence_uk("E06000044")
-    cardiff = get_incidence_uk("W06000015")
-    belfast = get_incidence_uk("N09000003")
-    liverpool = get_incidence_uk("E08000012")
-    birmingham = get_incidence_uk("E08000025")
-    edinburgh = get_incidence_uk("S12000036")
-    london = get_incidence_uk("E12000007")
+    manchester = get_incidence_uk("E08000003", 553230)
+    leeds = get_incidence_uk("E08000035", 792525)
+    glasgow =get_incidence_uk("S12000049", 1861315)
+    sheffield = get_incidence_uk("E08000019", 1569000)
+    nottingham = get_incidence_uk("E06000018", 331297)
+    newcastleUponTyne = get_incidence_uk("E08000021", 302820)
+    portsmouth = get_incidence_uk("E06000044", 1547000)
+    cardiff = get_incidence_uk("W06000015", 1097000)
+    belfast = get_incidence_uk("N09000003", 343000)
+    liverpool = get_incidence_uk("E08000012", 496784)
+    birmingham = get_incidence_uk("E08000025", 1149000)
+    edinburgh = get_incidence_uk("S12000036", 525000)
+    london = get_incidence_uk("E12000007", 8982000)
     berlin = get_incidence(11)
     munich = get_incidence(9162)
     hamburg = get_incidence(2000)
