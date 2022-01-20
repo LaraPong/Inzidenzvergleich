@@ -64,7 +64,7 @@ def city_search(city1, city2):
             info.update({city2: value})
     return (info)
 
-@app.before_first_request
+#@app.before_first_request
 def refresh_tables():
     city_dict = getBigCities()
     cur = mysql.connection.cursor()
@@ -78,16 +78,18 @@ def refresh_tables():
         mysql.connection.commit()
         query_delete = f"DELETE FROM inzidenzen_deutschland_{table_city} WHERE datum < {delete_date}"
         cur.execute(query_delete) #todo: Return last refreshed and post to website
+        mysql.connection.commit()
 
-scheduler = BackgroundScheduler()
-scheduler.add_job(func=refresh_tables, trigger="interval", seconds=3600*24)
-scheduler.start()
+#scheduler = BackgroundScheduler()
+#scheduler.add_job(func=refresh_tables, trigger="interval", seconds=60)
+#scheduler.start()
 
-atexit.register(lambda: scheduler.shutdown())
+#atexit.register(lambda: scheduler.shutdown())
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
     formData = request.values
+    refresh_tables()
 
     if request.method == 'POST':
         suchwort = str(formData.get('input1'))
