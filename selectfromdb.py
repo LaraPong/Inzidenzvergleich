@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
-from datetime import datetime, timedelta
-
-import requests, json
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -11,63 +9,62 @@ app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'inzidenzen'
 app.config['MYSQL_SQL_MODE'] = 'NO_AUTO_VALUE_ON_ZERO'
+#Entsprechend anpassen, wenn auf Server:
+#IP-Adresse: siehe Slack
+#User: siehe Slack
+#Password User Root: siehe Slack
+
 mysql = MySQL(app)
-today = ''
 
-def get_incidence(city_id):
-    url = "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/rki_key_data_v/FeatureServer/0/query?"
-    parameter = {
-        'referer':'https://www.mywebapp.com',
-        'user-agent':'python-requests/2.9.1',
-        'where': f'AdmUnitId = {city_id}', # Welche landkreise sollen zurück gegeben werden
-        'outFields': '*', # Rückgabe aller Felder
-        'returnGeometry': False, # Keine Geometrien
-        'f':'json', # Rückgabeformat, hier JSON
-        'cacheHint': True # Zugriff über CDN anfragen
-    }
-    result = requests.get(url=url, params=parameter) #Anfrage absetzen
-    resultjson = json.loads(result.text) # Das Ergebnis JSON als Python Dictionary laden
-    incidence = resultjson['features'][0]['attributes']['Inz7T']
-    return incidence
+#cursor = mysql.connection.cursor()
+
+@app.route('/', methods=['GET', 'POST'])
+#def get_incidence7days():
+    #formData = request.values
+    #spacing = "<br ><br>"
+    #cursor = mysql.connection.cursor()
+    #if request.method == 'POST':
+    #    select_inzidence7days = "SELECT * FROM inzidenzen_deutschland_essen"
+    #    incidence7days = cursor.execute(select_inzidence7days)
+    #return incidence7days
+
+#def getBigCities():
+#    select_berlin = "SELECT * FROM inzidenzen_deutschland_berlin WHERE datum=%s"
+#    berlin = cursor.execute(select_berlin, (current_date,))
+#    select_essen = "SELECT * FROM inzidenzen_deutschland_essen WHERE datum=%s"
+#    essen = cursor.execute(select_essen, (current_date,))
+
+#    dict={}
+#    dict['Berlin'] =berlin
+#    dict['Essen'] = essen
+
+#    return dict
+
+#city_dict = getBigCities()
+
+#def city_search(city1, city2):
+#    list = []
+
+#    for key, value in city_dict.items():
+#        if city1 in key:
+#            list.append(city1)
+#            list.append(value)
+
+#        if city2 in key:
+ #           list.append(city2)
+ #           list.append(value)
+
+#    return list
 
 
-# Funktion ruft Inzidenzen für 10 gr Städte auf und speichert sie in dictionary
 
-def getBigCities():
-    cities_incidences = {}
-    
-    big_cities = {# Das irgendwann direkt aus Datenbank oder Tabelle ablesen
-      'Berlin': 11,
-      'München': 9162,
-      'Hamburg': 2000,
-      'Köln': 5315,
-      'Frankfurt': 6412,
-      'Stuttgart': 8111,
-      'Düsseldorf': 5111,
-      'Dortmund': 5913,
-      'Essen': 5113 }
-    
-    for key, value in big_cities.items():
-        cities_incidences[key] = get_incidence(value)
-    return cities_incidences
-city_dict = getBigCities()
-
-def city_search(city1, city2):
-    info = {}
-
-    for key, value in city_dict.items():
-        if city1 in key:
-            info.update({city1: value})
-
-        if city2 in key:
-            info.update({city2: value})
-    return (info)
-
-@app.route("/", methods=['GET', 'POST'])
 def homepage():
     formData = request.values
-
+    spacing = "<br ><br>"
+    now = datetime.now()
+    current_date = now.strftime('%Y-%m-%d')
     if request.method == 'POST':
+
         suchwort = str(formData.get('input1'))
         suchwort2 = str(formData.get('input2'))
         cursor = mysql.connection.cursor()
@@ -137,7 +134,7 @@ def homepage():
             results = cursor.fetchall()
 
         if suchwort=='Hamburg':
-            select_inzidence_hamburg = "SELECT datum, inzidenz FROM inzidenzen_deutschland_hamburg"
+            select_inzidence_hamburg = "SELECT datum, nzidenz FROM inzidenzen_deutschland_hamburg"
             cursor.execute(select_inzidence_hamburg)
             results = cursor.fetchall()
 
@@ -159,20 +156,5 @@ def homepage():
     else:
         return render_template('inzidenzdata.html')
 
-@app.cli.command()    
-def refresh_tables():
-    """Refresh the tables from APIs"""
-    city_dict = getBigCities()
-    cur = mysql.connection.cursor()
-    today = datetime.today().strftime('%Y-%m-%d')
-    delete_date = (datetime.today() - timedelta(7)).strftime('%Y-%m-%d')
-    for key, value in city_dict.items():
-        table_city = key.lower().replace("ä","ae").replace("ö","oe").replace("ü","ue") #aus Städtenamen Tabellennamen machen
-        query = f"INSERT INTO inzidenzen_deutschland_{table_city} (datum, inzidenz) VALUES (%s, %s)"
-        cur.execute(query, ({today}, {str(value)}))
-        query_delete = f"DELETE FROM inzidenzen_deutschland_{table_city} WHERE datum < %s"
-        cur.execute(query_delete, ({delete_date}))
-        mysql.connection.commit()
 
-if __name__ == "__main__":
-   app.run(debug=True)
+app.run(host='localhost', port=5000)
