@@ -1,8 +1,16 @@
 from flask import Flask, render_template, request
-
+from flask_mysqldb import MySQL
 import requests, json
 
+
 app = Flask(__name__)
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'inzidenzen'
+app.config['MYSQL_SQL_MODE'] = 'NO_AUTO_VALUE_ON_ZERO'
+mysql = MySQL(app)
+today = ''
 
 def get_incidence(city_id):
     url = "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/rki_key_data_v/FeatureServer/0/query?"
@@ -55,45 +63,67 @@ def city_search(city1, city2):
     return (info)
 
 
-def tableGetDate():
+#def tableGetDate():
     #ToDo: Implement Database Call
     
-    return "1.1.2011"
+    #return "1.1.2011"
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
-    dict1 = getBigCities()
-    suchdic1 = [v for v in dict1.keys()]
+   # dict1 = getBigCities()
+    #suchdic1 = [v for v in dict1.keys()]
     if request.method == 'POST':
         suchwort = request.form['input1']
         suchwort2 = request.form['input2']
-        results = city_search(suchwort, suchwort2)
-        xwerte = [v for v in results.keys()]
-        ywerte = [x for x in results.values()]
+        cursor = mysql.connection.cursor()
+        select_incidence= f"SELECT * FROM inzidenzen_deutschland_{suchwort}"
+        cursor.execute(select_incidence)
+        results = cursor.fetchall()
+
+        print(results)
+        select_date = f"SELECT datum FROM inzidenzen_deutschland_{suchwort}"
+        cursor.execute(select_date)
+        resultdate = cursor.fetchall()
+
+        inzlist1=[row[2] for row in results]
+
+        neulist=[]
+        for row in results:
+            neulist.append(str(row[1]))
+
+
+        cursor = mysql.connection.cursor()
+        select_incidence = f"SELECT * FROM inzidenzen_deutschland_{suchwort2}"
+        cursor.execute(select_incidence)
+        results2 = cursor.fetchall()
+
+        inzlist2=[row[2] for row in results2]
+
+        #results = city_search(suchwort, suchwort2)
+        #xwerte = [v for v in results.keys()]
+        # ywerte = [x for x in results.values()]
         # y1 , y2 inzidenzwert für je suchwort
-        y1= results[suchwort]
-        y2= results[suchwort2]
+        #y1= results[suchwort]
+        # y2= results[suchwort2]
         # st1, st2 beispiel für 7 Tag von inzidenzwert
-        st1= [150, 200 ,300,400,500,600,300]
-        st2= [500, 200 ,100,400,200,500,20]
          # dat beispiel für datum
-        dat=[14.01, 15.01 ,16.01,17.01,18.01,19.01,20.01]
+        #dat=resultdate
 
 
-        error1 = None
-        error2 = None
+        #error1 = None
+       # error2 = None
 
-        if suchwort not in suchdic1:
-            error1 = 'Stadt 1 nicht gültig'
+       # if suchwort not in suchdic1:
+           # error1 = 'Stadt 1 nicht gültig'
 
-        if suchwort2 not in suchdic1:
-            error2 = 'Stadt 2 nicht gültig'
+       # if suchwort2 not in suchdic1:
+           # error2 = 'Stadt 2 nicht gültig'
 
-        if error1 or error2:
-            return render_template('homepage.html', error1=error1, error2=error2, suchwort=suchwort, suchwort2=suchwort2)
+      #  if error1 or error2:
+           # return render_template('homepage.html', error1=error1, error2=error2, suchwort=suchwort, suchwort2=suchwort2)
 
-        return render_template('homepage.html', results=results, suchwort=suchwort, suchwort2=suchwort2, xwerte=xwerte,
-                               ywerte=ywerte, y1=y1, y2=y2, st1=st1, st2=st2, dat=dat)
+        return render_template('homepage.html', suchwort=suchwort, suchwort2=suchwort2,
+                                 inzlist2=inzlist2, inzlist1=inzlist1,neulist=neulist)
     else:
         return render_template('homepage.html')
 
