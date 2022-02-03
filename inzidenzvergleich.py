@@ -5,7 +5,6 @@ from datetime import datetime, timedelta
 import requests, json
 
 app = Flask(__name__)
-
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
@@ -13,6 +12,7 @@ app.config['MYSQL_DB'] = 'inzidenzen'
 app.config['MYSQL_SQL_MODE'] = 'NO_AUTO_VALUE_ON_ZERO'
 mysql = MySQL(app)
 today = ''
+
 
 def get_incidence(city_id):
     url = "https://services7.arcgis.com/mOBPykOjAyBO2ZKk/arcgis/rest/services/rki_key_data_v/FeatureServer/0/query?"
@@ -63,99 +63,78 @@ def city_search(city1, city2):
             info.update({city2: value})
     return (info)
 
+
+#def tableGetDate():
+    #ToDo: Implement Database Call
+    
+    #return "1.1.2011"
+
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
-    formData = request.values
-
+   # dict1 = getBigCities()
+    #suchdic1 = [v for v in dict1.keys()]
     if request.method == 'POST':
-        suchwort = str(formData.get('input1'))
-        suchwort2 = str(formData.get('input2'))
+        suchwort = request.form['input1']
+        suchwort2 = request.form['input2']
         cursor = mysql.connection.cursor()
-        if suchwort=='Berlin':
-            select_inzidence_berlin = "SELECT inzidenz FROM inzidenzen_deutschland_berlin "
-            cursor.execute(select_inzidence_berlin)
-            results = cursor.fetchall()
 
-        if suchwort2 == 'Berlin':
-            select_inzidence_berlin = "SELECT inzidenz FROM inzidenzen_deutschland_berlin "
-            cursor.execute(select_inzidence_berlin)
-            results2 = cursor.fetchall()
+        select_incidence= f"SELECT * FROM inzidenzen_deutschland_{suchwort}"
+        cursor.execute(select_incidence)
+        results = cursor.fetchall()
 
-        if suchwort=='Essen':
-            select_inzidence_essen = "SELECT datum, inzidenz FROM inzidenzen_deutschland_essen"
-            cursor.execute(select_inzidence_essen)
-            results = cursor.fetchall()
+        #print(results)
 
-        if suchwort2 == 'Essen':
-            select_inzidence_essen = "SELECT datum, inzidenz FROM inzidenzen_deutschland_essen"
-            cursor.execute(select_inzidence_essen)
-            results2 = cursor.fetchall()
+        inzlist1=[row[2] for row in results]
 
-        if suchwort == 'Bremen':
-            select_inzidence_bremen = "SELECT datum, inzidenz FROM inzidenzen_deutschland_bremen"
-            cursor.execute(select_inzidence_bremen)
-            results = cursor.fetchall()
+        neulist=[]
+        for row in results:
+            neulist.append(str(row[1]))
 
-        if suchwort2 == 'Bremen':
-            select_inzidence_bremen = "SELECT datum, inzidenz FROM inzidenzen_deutschland_bremen"
-            cursor.execute(select_inzidence_bremen)
-            results2 = cursor.fetchall()
+        print(neulist)
+        cursor = mysql.connection.cursor()
+        select_incidence = f"SELECT * FROM inzidenzen_deutschland_{suchwort2}"
+        cursor.execute(select_incidence)
+        results2 = cursor.fetchall()
 
-        if suchwort=='Dortmund':
-            select_inzidence_dortmund = "SELECT datum, inzidenz FROM inzidenzen_deutschland_dortmund"
-            cursor.execute(select_inzidence_dortmund)
-            results = cursor.fetchall()
+        inzlist2=[row[2] for row in results2]
+        #print(inzlist2)
 
-        if suchwort2 == 'Dortmund':
-            select_inzidence_dortmund = "SELECT datum, inzidenz FROM inzidenzen_deutschland_dortmund"
-            cursor.execute(select_inzidence_dortmund)
-            results2 = cursor.fetchall()
+        xwerte = [suchwort, suchwort2]
 
-        if suchwort=='Dresden':
-            select_inzidence_dresden = "SELECT datum, inzidenz FROM inzidenzen_deutschland_dresden"
-            cursor.execute(select_inzidence_dresden)
-            results = cursor.fetchall()
 
-        if suchwort2 == 'Dresden':
-            select_inzidence_dresden = "SELECT datum, inzidenz FROM inzidenzen_deutschland_dresden"
-            cursor.execute(select_inzidence_dresden)
-            results2 = cursor.fetchall()
+        y1 = inzlist1[len(inzlist1)-1]
 
-        if suchwort=='Düsseldorf':
-            select_inzidence_duesseldorf = "SELECT datum, inzidenz FROM inzidenzen_deutschland_duesseldorf"
-            cursor.execute(select_inzidence_duesseldorf)
-            results = cursor.fetchall()
+        y2 = inzlist2[len(inzlist2)-1]
 
-        if suchwort=='Erfurt':
-            select_inzidence_erfurt = "SELECT datum, inzidenz FROM inzidenzen_deutschland_erfurt"
-            cursor.execute(select_inzidence_erfurt)
-            results = cursor.fetchall()
+        ywerte = [y1, y2]
 
-        if suchwort=='Frankfurt':
-            select_inzidence_frankfurt = "SELECT datum, inzidenz FROM inzidenzen_deutschland_frankfurt"
-            cursor.execute(select_inzidence_frankfurt)
-            results = cursor.fetchall()
 
-        if suchwort=='Hamburg':
-            select_inzidence_hamburg = "SELECT datum, inzidenz FROM inzidenzen_deutschland_hamburg"
-            cursor.execute(select_inzidence_hamburg)
-            results = cursor.fetchall()
+        #results = city_search(suchwort, suchwort2)
+        #xwerte = [v for v in results.keys()]
+        # ywerte = [x for x in results.values()]
+        # y1 , y2 inzidenzwert für je suchwort
+        #y1= results[suchwort]
+        # y2= results[suchwort2]
+        # st1, st2 beispiel für 7 Tag von inzidenzwert
+         # dat beispiel für datum
+        #dat=resultdate
 
-        if suchwort=='Hannover':
-            select_inzidence_hannover = "SELECT datum, inzidenz FROM inzidenzen_deutschland_hannover"
-            cursor.execute(select_inzidence_hannover)
-            results = cursor.fetchall()
 
-        select_berlin = "SELECT datum, inzidenz FROM inzidenzen_deutschland_berlin"
-        berlin = cursor.execute(select_berlin)
-        select_essen = "SELECT datum, inzidenz FROM inzidenzen_deutschland_essen"
-        essen = cursor.execute(select_essen)
+        #error1 = None
+       # error2 = None
 
-        dict = {}
-        dict['Berlin'] = berlin
-        dict['Essen'] = essen
+       # if suchwort not in suchdic1:
+           # error1 = 'Stadt 1 nicht gültig'
 
-        return render_template('inzidenzdata.html', results=results, results2=results2, suchwort=suchwort, suchwort2=suchwort2)
+       # if suchwort2 not in suchdic1:
+           # error2 = 'Stadt 2 nicht gültig'
+
+      #  if error1 or error2:
+           # return render_template('homepage.html', error1=error1, error2=error2, suchwort=suchwort, suchwort2=suchwort2)
+
+        return render_template('homepage.html', suchwort=suchwort, suchwort2=suchwort2,ywerte=ywerte,xwerte=xwerte,
+                                 inzlist2=inzlist2, inzlist1=inzlist1,neulist=neulist)
+
     else:
         return render_template('inzidenzdata.html')
 
