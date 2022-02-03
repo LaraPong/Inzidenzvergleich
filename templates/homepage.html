@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="js/index.js"></script>
 
     <title>vergleichbar</title>
 </head>
@@ -55,32 +56,38 @@
 
 </form>
 
-
+<div class="flex flex-col  sm:flex sm:flex-row">
   <div class="col-xs-10 col-sm-6 col-md-6 ml-2 " >
- <div class="card card-style mb-6 ">
-  <div class="card-body">
-    <div class="chart-container" style="position: relative;">
+
          <canvas id="myChart"></canvas>
     </div>
-  </div>
- </div>
-</div>
 
 
-  <div class="col-xs-10 col-sm-6 col-md-6 ml-2" >
- <div class="card card-style mb-0 " >
-  <div class="card-body">
-    <div class="chart-container" style="position: relative;">
+  <div class=" grow-0 h-32 col-xs-10 col-sm-6 col-md-6 ml-2" >
+
          <canvas id="myChart2"></canvas>
     </div>
-  </div>
- </div>
+
 </div>
-
     <script>
+    Chart.register({
+      id: 'custom_canvas_background_color',
+      beforeDraw: (chart) => {
+        const ctx = chart.canvas.getContext('2d');
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-over';
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, chart.width, chart.height);
+        ctx.restore();
+      }
+    });
 
 
-      var ctx = document.getElementById("myChart").getContext("2d");
+      var canvas = document.getElementById("myChart");
+      var ctx = canvas.getContext("2d");
+
+
+
       var chart = new Chart(ctx, {
         type: "bar",
         data: {
@@ -104,7 +111,6 @@
 
         options: {
 
-
         plugins: {
          legend: {
               display: false,
@@ -123,6 +129,8 @@
               beginAtZero: true
             }
           }
+
+
         }
       });
 
