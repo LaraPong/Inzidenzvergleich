@@ -2,7 +2,6 @@ from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
 import requests, json
 
-
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
@@ -76,14 +75,12 @@ def homepage():
         suchwort = request.form['input1']
         suchwort2 = request.form['input2']
         cursor = mysql.connection.cursor()
+
         select_incidence= f"SELECT * FROM inzidenzen_deutschland_{suchwort}"
         cursor.execute(select_incidence)
         results = cursor.fetchall()
 
-        print(results)
-        select_date = f"SELECT datum FROM inzidenzen_deutschland_{suchwort}"
-        cursor.execute(select_date)
-        resultdate = cursor.fetchall()
+        #print(results)
 
         inzlist1=[row[2] for row in results]
 
@@ -91,13 +88,24 @@ def homepage():
         for row in results:
             neulist.append(str(row[1]))
 
-
+        print(neulist)
         cursor = mysql.connection.cursor()
         select_incidence = f"SELECT * FROM inzidenzen_deutschland_{suchwort2}"
         cursor.execute(select_incidence)
         results2 = cursor.fetchall()
 
         inzlist2=[row[2] for row in results2]
+        #print(inzlist2)
+
+        xwerte = [suchwort, suchwort2]
+
+
+        y1 = inzlist1[len(inzlist1)-1]
+
+        y2 = inzlist2[len(inzlist2)-1]
+
+        ywerte = [y1, y2]
+
 
         #results = city_search(suchwort, suchwort2)
         #xwerte = [v for v in results.keys()]
@@ -122,7 +130,7 @@ def homepage():
       #  if error1 or error2:
            # return render_template('homepage.html', error1=error1, error2=error2, suchwort=suchwort, suchwort2=suchwort2)
 
-        return render_template('homepage.html', suchwort=suchwort, suchwort2=suchwort2,
+        return render_template('homepage.html', suchwort=suchwort, suchwort2=suchwort2,ywerte=ywerte,xwerte=xwerte,
                                  inzlist2=inzlist2, inzlist1=inzlist1,neulist=neulist)
     else:
         return render_template('homepage.html')
