@@ -29,7 +29,13 @@
   <div class="grid grid-cols-1 place-items-center space-y-4  sm:grid sm:grid-cols-2 sm:justify-items-center gap-x-0 gap-y-0 ">
       <div class="flex flex-col space-y-2  sm:flex sm:flex-row sm:items-center ">
        <label  for="stadt1" class="text-blue-900 font-bold text-sm sm:text-base" >Bitte Erste Stadt eingeben:</label>
-       <input  id="stadt1" type="text" name="input1" value="{{suchwort}}" class=" sm:m-4 border-4 border-double border-light-blue-500 border-opacity-25"  required>
+       <input  list="stadte1" id="stadt1"  name="input1" value="{{suchwort}}" class=" sm:m-4 border-4 border-double border-light-blue-500 border-opacity-25"  required>
+           <datalist id="stadte1">
+               {% for name in suchdic1 %}
+                   <option value="{{name}}"></option>
+               {% endfor %}
+
+            </datalist>
           {% if error1 %}
   <div class="text-xs text-red-700">
   Error! {{ error1 }}
@@ -38,7 +44,15 @@
       </div>
       <div class="flex flex-col space-y-2 sm:flex sm:flex-row sm:items-center">
        <label  for="stadt2" class="text-blue-900 font-bold text-sm sm:text-base" > Bitte Zweite Stadt eingeben:</label>
-       <input  id="stadt2" type="text" name="input2"  value="{{suchwort2}}" class="sm:m-4 border-4 border-double border-light-blue-500 border-opacity-25" required >
+
+       <input list="stadte2" id="stadt2" name="input2"  value="{{suchwort2}}" class="sm:m-4 border-4 border-double border-light-blue-500 border-opacity-25" required >
+            <datalist id="stadte2">
+               {% for name in suchdic1 %}
+                   <option value="{{name}}"></option>
+               {% endfor %}
+
+            </datalist>
+
       {% if error2 %}
           <div class="text-xs text-red-700">
       Error! {{ error2 }}
@@ -49,23 +63,21 @@
   </div>
 
       <div class="text-center cursor-pointer ">
-      <input  type="submit" value="Inzidenzwert"  class="animate-pulse shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/3 sm:w-1/6 rounded-lg text-center mb-2">
-
-  </div>
+          <input  type="submit" value="Inzidenzwert"  class="animate-pulse shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/3 sm:w-1/6 rounded-lg text-center mb-2">
+      </div>
 
 
 </form>
 
 <div class="flex flex-col  sm:flex sm:flex-row">
-  <div class="col-xs-10 col-sm-6 col-md-6 ml-2 " >
+  <div class="col-xs-10 col-sm-6 col-md-6 ml-2 mb-2" >
          <canvas id="myChart"></canvas>
   </div>
 
 
-  <div class=" grow-0 h-32 col-xs-10 col-sm-6 col-md-6 ml-2" >
+  <div class="col-xs-10 col-sm-6 col-md-6 ml-2 " >
          <canvas id="myChart2"></canvas>
   </div>
-
 </div>
 
     <script>
@@ -176,7 +188,7 @@
 				legend: {
 					position: 'top',
 				},
-				 plugins: {
+		   	  plugins: {
 				title: {
                    text: 'Inzidenzwert für 7 Tage',
                    display: true
@@ -192,7 +204,7 @@
 					caretPadding:10
 				},
 				layout:{
-					padding:{left:15,right:15,top:15,bottom:15}
+					padding:{left:0,right:0,top:0,bottom:0}
 				},
 				scales: {
 				         x:
@@ -205,7 +217,7 @@
 				         }
 				         },
                         y: {
-                             title: {
+                         title: {
                           display: true,
                           text: 'Inzidenzwert'
                               },

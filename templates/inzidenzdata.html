@@ -11,20 +11,26 @@
 
 <body class="bg-green-100">
 
-    <div class="flex">
-      <div class="bg-gradient-to-r from-blue-200 to-green-200 mb-2 m-8 pb-2 p-6 shadow-lg w-full  rounded-lg border border-gray-200">
-          <img alt="Thoughtworks" id="tw-logo" width="153px" height="24px" src="https://www.thoughtworks.com/etc.clientlibs/thoughtworks/clientlibs/clientlib-site/resources/images/thoughtworks-logo.svg"
-               title="Thoughtworks" />
-          <p class="font-serif text-blue-900 text-xs text-left">
-            <span class="font-bold text-red-500">vergleichbar.eu</span> Einfaches Vergleichen von Inzidenzwerten  in unterschiedlichen Städten Europas
-          </p>
-      </div>
+ <div class="flex">
+    <div class="bg-gradient-to-r from-blue-200 to-green-200 mb-0 sm:mb-2 m-2 sm:m-8 pb-0 sm:pb-2 p-1 sm:p-6 shadow-lg w-full  rounded-lg border border-gray-200">
+        <img alt="Thoughtworks" id="tw-logo" width="153px" height="24px" src="https://www.thoughtworks.com/etc.clientlibs/thoughtworks/clientlibs/clientlib-site/resources/images/thoughtworks-logo.svg"
+             title="Thoughtworks" />
+        <p class="font-serif text-blue-900 text-xs text-left">
+          <span class="font-bold text-red-500">vergleichbar.eu</span>Einfaches Vergleichen von Inzidenzwerten  in unterschiedlichen Städten Europas
+        </p>
     </div>
+  </div>
 <form  method="post" id="myForm" name="myForm" class="relative" action="" >
   <div class="grid grid-cols-1 place-items-center space-y-4  sm:grid sm:grid-cols-2 sm:justify-items-center gap-x-0 gap-y-0 ">
       <div class="flex flex-col space-y-2  sm:flex sm:flex-row sm:items-center ">
-       <label  for="stadt1" class="text-blue-900 font-bold text-sm sm:text-base" >Bitte Erste Stadt eingeben:</label>
-       <input  id="stadt1" type="text" name="input1" value="{{suchwort}}" class=" sm:m-4 border-4 border-double border-light-blue-500 border-opacity-25"  required>
+              <label  for="stadt1" class="text-blue-900 font-bold text-sm sm:text-base" >Bitte Erste Stadt eingeben:</label>
+       <input  list="stadte1" id="stadt1"  name="input1" value="{{suchwort}}" class=" sm:m-4 border-4 border-double border-light-blue-500 border-opacity-25"  required>
+           <datalist id="stadte1">
+               {% for name in suchdic1 %}
+                   <option value="{{name}}"></option>
+               {% endfor %}
+
+            </datalist>
           {% if error1 %}
   <div class="text-xs text-red-700">
   Error! {{ error1 }}
@@ -32,8 +38,15 @@
       {% endif %}
       </div>
       <div class="flex flex-col space-y-2 sm:flex sm:flex-row sm:items-center">
-       <label  for="stadt2" class="text-blue-900 font-bold text-sm sm:text-base" > Bitte Zweite Stadt eingeben:</label>
-       <input  id="stadt2" type="text" name="input2"  value="{{suchwort2}}" class="sm:m-4 border-4 border-double border-light-blue-500 border-opacity-25" required >
+              <label  for="stadt2" class="text-blue-900 font-bold text-sm sm:text-base" > Bitte Zweite Stadt eingeben:</label>
+
+       <input list="stadte2" id="stadt2" name="input2"  value="{{suchwort2}}" class="sm:m-4 border-4 border-double border-light-blue-500 border-opacity-25" required >
+            <datalist id="stadte2">
+               {% for name in suchdic1 %}
+                   <option value="{{name}}"></option>
+               {% endfor %}
+
+            </datalist>
  {% if error2 %}
           <div class="text-xs text-red-700">
       Error! {{ error2 }}
@@ -45,65 +58,11 @@
 
       <p for="country" class="text-blue-900 font-bold animate-pulse text-center">Zeitraum wählen</p>
     <div class="text-center cursor-pointer ">
-       ´ <input  type="submit" value="Inzidenzwert"  class="shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/6 rounded-lg text-center">
-<!--         <input  type="submit"  value="Seit 7 Tagen"  class="shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/6 rounded-lg text-center">-->
+        <input  type="submit" value="Inzidenzwert"  class="shadow-lg bg-gradient-to-r from-blue-200 to-green-200 text-blue-900 text-sm font-bold h-6 w-1/6 rounded-lg text-center">
     </div>
 </form>
 
-   <h4 class="font-normal pl-12 text-base text-red-500"  >Inzidenzwert für Ihre Suche:
 
-       <span class=" text-blue-900" id="b1"></span></h4>
-
-
-   <!--<ul id="res7t">
-       {% for result in results %}
-        <li class=" font-bold" >
-         {{ result}}
-        </li>
-       {% endfor %}
-   </ul>-->
-
-    Inzidenzen {{suchwort}}
-    <table>
-    {% for result in results %}
-        <!--<tr>
-            <th>Datum</th>
-            <th>Inzidenz</th>
-        </tr>-->
-        <tr>
-        {% for i in result %}
-            <td>{{ i }} , </td>
-        {% endfor %}
-        </tr>
-    {% endfor %}
-     </table>
-
-    Inzidenzen {{suchwort2}}
-    <table>
-    {% for result in results2 %}
-        <!--<tr>
-            <th>Datum</th>
-            <th>Inzidenz</th>
-        </tr>-->
-        <tr>
-        {% for i in result %}
-            <td>{{ i }} , </td>
-        {% endfor %}
-        </tr>
-    {% endfor %}
-     </table>
-
-    <!--<p>Huhu</p>
-    <div>
-    {#<% for row in results %}
-          <tr>
-             <td>{{ row[0] }}</td>
-             <td>{{ row[1] }}</td>
-             <td>{{ row[2] }}</td>
-             <td>{{ row[3] }}</td>
-          </tr>
-    {% endfor %}#}
-    </div>-->
 
 
 </body>

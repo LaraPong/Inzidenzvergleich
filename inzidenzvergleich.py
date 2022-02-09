@@ -31,48 +31,19 @@ def get_incidence(city_id):
     return incidence
 
 
-# Funktion ruft Inzidenzen für 10 gr Städte auf und speichert sie in dictionary
-
-def getBigCities():
-    cities_incidences = {}
-    
-    big_cities = {# Das irgendwann direkt aus Datenbank oder Tabelle ablesen
-      'Berlin': 11,
-      'München': 9162,
-      'Hamburg': 2000,
-      'Köln': 5315,
-      'Frankfurt': 6412,
-      'Stuttgart': 8111,
-      'Düsseldorf': 5111,
-      'Dortmund': 5913,
-      'Essen': 5113 }
-    
-    for key, value in big_cities.items():
-        cities_incidences[key] = get_incidence(value)
-    return cities_incidences
-city_dict = getBigCities()
-
-def city_search(city1, city2):
-    info = {}
-
-    for key, value in city_dict.items():
-        if city1 in key:
-            info.update({city1: value})
-
-        if city2 in key:
-            info.update({city2: value})
-    return (info)
 
 
 #def tableGetDate():
     #ToDo: Implement Database Call
-    
+
     #return "1.1.2011"
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
-   # dict1 = getBigCities()
-    #suchdic1 = [v for v in dict1.keys()]
+
+    suchdic1 = ["Dortmund", "Essen", "Berlin","München","Hamburg","Köln","Frankfurt","Stuttgart","Düsseldorf","Bremen","Dresden","Erfurt","Hannover","Kiel","Magdeburg","Mainz","Potsdam","Saarbrücken","Schwerin","Wiesbaden"
+                "Manschester","Leeds", "Glasgow","Sheffield" , "Nottingham","NewcastleUponTyne", "Portsmouth","London", "Cardiff", "Belfast", "Liverpool" , "Birmingham" , "Edinburgh"]
+
     if request.method == 'POST':
         suchwort = request.form['input1']
         suchwort2 = request.form['input2']
@@ -82,7 +53,6 @@ def homepage():
         cursor.execute(select_incidence)
         results = cursor.fetchall()
 
-        #print(results)
 
         inzlist1=[row[2] for row in results]
 
@@ -90,53 +60,40 @@ def homepage():
         for row in results:
             neulist.append(str(row[1]))
 
-        print(neulist)
         cursor = mysql.connection.cursor()
         select_incidence = f"SELECT * FROM inzidenzen_deutschland_{suchwort2}"
         cursor.execute(select_incidence)
         results2 = cursor.fetchall()
 
         inzlist2=[row[2] for row in results2]
-        #print(inzlist2)
 
         xwerte = [suchwort, suchwort2]
 
-
         y1 = inzlist1[len(inzlist1)-1]
-
         y2 = inzlist2[len(inzlist2)-1]
 
         ywerte = [y1, y2]
 
 
-        #results = city_search(suchwort, suchwort2)
-        #xwerte = [v for v in results.keys()]
-        # ywerte = [x for x in results.values()]
-        # y1 , y2 inzidenzwert für je suchwort
-        #y1= results[suchwort]
-        # y2= results[suchwort2]
-        # st1, st2 beispiel für 7 Tag von inzidenzwert
-         # dat beispiel für datum
-        #dat=resultdate
 
+        error1 = None
+        error2 = None
 
-        #error1 = None
-       # error2 = None
+        if suchwort not in suchdic1:
+            error1 = 'Stadt 1 nicht gültig'
 
-       # if suchwort not in suchdic1:
-           # error1 = 'Stadt 1 nicht gültig'
+        if suchwort2 not in suchdic1:
+            error2 = 'Stadt 2 nicht gültig'
 
-       # if suchwort2 not in suchdic1:
-           # error2 = 'Stadt 2 nicht gültig'
-
-      #  if error1 or error2:
-           # return render_template('homepage.html', error1=error1, error2=error2, suchwort=suchwort, suchwort2=suchwort2)
+        if error1 or error2:
+            return render_template('homepage.html', error1=error1, error2=error2, suchwort=suchwort, suchwort2=suchwort2)
 
         return render_template('homepage.html', suchwort=suchwort, suchwort2=suchwort2,ywerte=ywerte,xwerte=xwerte,
-                                 inzlist2=inzlist2, inzlist1=inzlist1,neulist=neulist)
+                                 inzlist2=inzlist2, inzlist1=inzlist1,neulist=neulist,suchdic1=suchdic1)
 
     else:
-        return render_template('inzidenzdata.html')
+
+        return render_template('inzidenzdata.html',suchdic1=suchdic1)
 
 @app.cli.command()    
 def refresh_tables():
