@@ -152,9 +152,9 @@ def homepage():
         dict['Berlin'] = berlin
         dict['Essen'] = essen
 
-        return render_template('inzidenzdata.html', results=results, results2=results2, suchwort=suchwort, suchwort2=suchwort2)
+        return render_template('map.html', results=results, results2=results2, suchwort=suchwort, suchwort2=suchwort2)
     else:
-        return render_template('inzidenzdata.html')
+        return render_template('map.html')
 
 
 app.run(host='localhost', port=5000)
