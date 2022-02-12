@@ -31,7 +31,7 @@
        <label  for="stadt1" class="text-blue-900 font-bold text-sm sm:text-base" >Bitte Erste Stadt eingeben:</label>
        <input  list="stadte1" id="stadt1"  name="input1" value="{{suchwort}}" class=" sm:m-4 border-4 border-double border-light-blue-500 border-opacity-25"  required>
            <datalist id="stadte1">
-               {% for name in suchdic1 %}
+               {% for name in suchdic1%}
                    <option value="{{name}}"></option>
                {% endfor %}
 
@@ -53,11 +53,11 @@
 
             </datalist>
 
-      {% if error2 %}
-          <div class="text-xs text-red-700">
-      Error! {{ error2 }}
-      </div>
-       {% endif %}
+          {% if error2 %}
+             <div class="text-xs text-red-700">
+               Error! {{ error2 }}
+             </div>
+           {% endif %}
       </div>
 
   </div>
