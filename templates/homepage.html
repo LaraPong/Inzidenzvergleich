@@ -28,7 +28,7 @@
 <form  method="post" id="myForm" name="myForm" class="relative" action="" >
   <div class="grid grid-cols-1 place-items-center space-y-4  sm:grid sm:grid-cols-2 sm:justify-items-center gap-x-0 gap-y-0 ">
       <div class="flex flex-col space-y-2  sm:flex sm:flex-row sm:items-center ">
-       <label  for="stadt1" class="text-blue-900 font-bold text-sm sm:text-base" >Bitte Erste Stadt eingeben:</label>
+       <label  for="stadt1" class="text-blue-900 font-bold text-sm sm:text-base" >Bitte erste Stadt eingeben:</label>
        <input  list="stadte1" id="stadt1"  name="input1" value="{{suchwort}}" class=" sm:m-4 border-4 border-double border-light-blue-500 border-opacity-25"  required>
            <datalist id="stadte1">
                {% for name in suchdic1%}
@@ -43,7 +43,7 @@
        {% endif %}
       </div>
       <div class="flex flex-col space-y-2 sm:flex sm:flex-row sm:items-center">
-       <label  for="stadt2" class="text-blue-900 font-bold text-sm sm:text-base" > Bitte Zweite Stadt eingeben:</label>
+       <label  for="stadt2" class="text-blue-900 font-bold text-sm sm:text-base" > Bitte zweite Stadt eingeben:</label>
 
        <input list="stadte2" id="stadt2" name="input2"  value="{{suchwort2}}" class="sm:m-4 border-4 border-double border-light-blue-500 border-opacity-25" required >
             <datalist id="stadte2">
