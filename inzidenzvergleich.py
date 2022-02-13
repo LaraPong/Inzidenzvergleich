@@ -133,14 +133,13 @@ def homepage():
         ywerte = [y1, y2]
 
 
-
-
         return render_template('homepage.html', suchwort=suchwort, suchwort2=suchwort2, ywerte=ywerte, xwerte=xwerte,
                                  inzlist2=inzlist2, inzlist1=inzlist1,neulist=neulist,suchdic1=suchdic1)
 
     else:
 
         return render_template('homepage.html',suchdic1=suchdic1)
+
 @app.route("/")
 def index():
 
@@ -362,20 +361,6 @@ def index():
 def map():
     return render_template('map.html')
 
-@app.cli.command()
-def refresh_tables():
-    """Refresh the tables from APIs"""
-    city_dict = getBigCities()
-    cur = mysql.connection.cursor()
-    today = datetime.today().strftime('%Y-%m-%d')
-    delete_date = (datetime.today() - timedelta(7)).strftime('%Y-%m-%d')
-    for key, value in city_dict.items():
-        table_city = key.lower().replace("ä","ae").replace("ö","oe").replace("ü","ue")
-        query = f"INSERT INTO inzidenzen_deutschland_{table_city} (datum, inzidenz) VALUES (%s, %s)"
-        cur.execute(query, ({today}, {str(value)}))
-        query_delete = f"DELETE FROM inzidenzen_deutschland_{table_city} WHERE datum < %s"
-        cur.execute(query_delete, ({delete_date}))
-        mysql.connection.commit()
 
 if __name__ == "__main__":
    app.run(debug=True)

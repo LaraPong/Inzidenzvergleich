@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<head>    
+<head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    
+
         <script>
             L_NO_TOUCH = false;
             L_DISABLE_3D = false;
         </script>
-    
+
     <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
     <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
-    
+
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
@@ -31,15 +31,15 @@
                     top: 0.0%;
                 }
             </style>
-        
+
 </head>
-<body>    
-    
+<body>
+
             <div class="folium-map" id="map_2fa0edbccea14c13b05e4ad6868e33a3" ></div>
-        
+
 </body>
-<script>    
-    
+<script>
+
             var map_2fa0edbccea14c13b05e4ad6868e33a3 = L.map(
                 "map_2fa0edbccea14c13b05e4ad6868e33a3",
                 {
@@ -51,304 +51,306 @@
                 }
             );
 
-    
+
             var tile_layer_7de5257dfe6a4307b4a75cd46cd82aea = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             var marker_1bc038a82ebd4c08814f2037d8fbc8b6 = L.marker(
                 [52.52343, 13.41144],
                 {"popups": "Berlin"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_1bc038a82ebd4c08814f2037d8fbc8b6.bindTooltip(
                 `<div>
                      {'Berlin', 1495.7}
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_ac71e8b37dd1476a87c1c143431d68d5 = L.marker(
                 [48.1371079, 11.5753822],
                 {"popups": "M\u00fcnchen"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_ac71e8b37dd1476a87c1c143431d68d5.bindTooltip(
                 `<div>
                      {2321.9, 'München'}
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_6b9a71368aef4cfd92d20e65660baeb6 = L.marker(
                 [53.550341, 10.000654],
                 {"popups": "Hamburg"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_6b9a71368aef4cfd92d20e65660baeb6.bindTooltip(
                 `<div>
                      {1226.8, 'Hamburg'}
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_118055efa04e4793b0ea364312c5e36f = L.marker(
                 [50.938361, 6.959974],
                 {"popups": "K\u00f6ln"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_118055efa04e4793b0ea364312c5e36f.bindTooltip(
                 `<div>
                      {'Köln', 1767.4}
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_348aab8fd701481b96637705d7eb93d8 = L.marker(
                 [50.1106444, 8.6820917],
                 {"popups": "Frankfurt"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_348aab8fd701481b96637705d7eb93d8.bindTooltip(
                 `<div>
                      {'Frankfurt', 2270}
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_d47100cfa4a341d38eeca158664de36a = L.marker(
                 [48.7784485, 9.1800132],
                 {"popups": "Stuttgart"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_d47100cfa4a341d38eeca158664de36a.bindTooltip(
                 `<div>
                      {'Stuttgart', 815.8}
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_aa09ad1984064c618c321a5bead4865e = L.marker(
                 [51.2254018, 6.7763137],
                 {"popups": "D\u00fcsseldorf"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_aa09ad1984064c618c321a5bead4865e.bindTooltip(
                 `<div>
                      {'Düsseldorf', 1735.6}
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_19bf57fa773f47dfb8f8a4c5ff58c162 = L.marker(
                 [51.5142273, 7.4652789],
                 {"popups": "Dortmund"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_19bf57fa773f47dfb8f8a4c5ff58c162.bindTooltip(
                 `<div>
                      {'Dortmund', 1878.7}
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_0f32119b49c14c57abdeb4bfed4f25c6 = L.marker(
                 [51.4582235, 7.0158171],
                 {"popups": "Essen"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_0f32119b49c14c57abdeb4bfed4f25c6.bindTooltip(
                 `<div>
                      {'Essen', 1799.6}
                  </div>`,
                 {"sticky": true}
             );
-        
-    
-            var marker_e03d2b13410240bebe4b81bb4787a540 = L.marker(
+
+
+
+
+         var marker_e03d2b13410240bebe4b81bb4787a540 = L.marker(
                 [53.480709, -2.23438],
                 {"popups": "Manchester"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_e03d2b13410240bebe4b81bb4787a540.bindTooltip(
                 `<div>
                      Manchester
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_eaac40bf39974ba39a5f5f0d1280fd07 = L.marker(
                 [53.79969, -1.5491],
                 {"popups": "Leeds"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_eaac40bf39974ba39a5f5f0d1280fd07.bindTooltip(
                 `<div>
                      Leeds
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_e1feb670b2c4472a8a2ff38e210688c9 = L.marker(
                 [55.865681, -4.25714],
                 {"popups": "Glasgow"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_e1feb670b2c4472a8a2ff38e210688c9.bindTooltip(
                 `<div>
                      Glasgow
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_257a4df2c9414c2993285c518fd68372 = L.marker(
                 [53.38306, -1.4648],
                 {"popups": "Sheffield"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_257a4df2c9414c2993285c518fd68372.bindTooltip(
                 `<div>
                      Sheffield
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_f612931c937140728f35bf54e8ccc2b6 = L.marker(
                 [52.9534193, -1.1496461],
                 {"popups": "Nottingham"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_f612931c937140728f35bf54e8ccc2b6.bindTooltip(
                 `<div>
                      Notttingham
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_a9a7e5d0e2044cfdb851770955c48263 = L.marker(
                 [54.9688539, -1.6104344],
                 {"popups": "New castle upon tyne"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_a9a7e5d0e2044cfdb851770955c48263.bindTooltip(
                 `<div>
                      New castle upon tyne
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_211935f3e87940e89b9ab67aae5dc2c7 = L.marker(
                 [51.4816546, -3.1791934],
                 {"popups": "Cardiff"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_211935f3e87940e89b9ab67aae5dc2c7.bindTooltip(
                 `<div>
                      Cardiff
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_b5093a8de7f14342a8278884a650d331 = L.marker(
                 [54.596391, -5.9301829],
                 {"popups": "Belfast"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_b5093a8de7f14342a8278884a650d331.bindTooltip(
                 `<div>
                      Belfast
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_133095d232c24a43874b584e10bdcc97 = L.marker(
                 [53.4071991, -2.99168],
                 {"popups": "Liverpool"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_133095d232c24a43874b584e10bdcc97.bindTooltip(
                 `<div>
                      Liverpool
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_f7577056c36b4db8a97e54d555b6dbf6 = L.marker(
                 [52.4796992, -1.9026911],
                 {"popups": "Birmingham"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_f7577056c36b4db8a97e54d555b6dbf6.bindTooltip(
                 `<div>
                      Birmingham
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_0fdd3dcdc4624e6eb68d7c1367b4e2ac = L.marker(
                 [55.9533456, -3.1883749],
                 {"popups": "Edinburgh"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_0fdd3dcdc4624e6eb68d7c1367b4e2ac.bindTooltip(
                 `<div>
                      Edinburgh
                  </div>`,
                 {"sticky": true}
             );
-        
-    
+
+
             var marker_703037c08c894965a2ecd104d45bd4d4 = L.marker(
                 [51.5073219, -0.1276474],
                 {"popups": "London"}
             ).addTo(map_2fa0edbccea14c13b05e4ad6868e33a3);
-        
-    
+
+
             marker_703037c08c894965a2ecd104d45bd4d4.bindTooltip(
                 `<div>
-                     London
+                {'London', 1799.6}
                  </div>`,
                 {"sticky": true}
             );
-        
+
 </script>
