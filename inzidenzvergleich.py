@@ -95,21 +95,33 @@ def get_big_cities():
     dict['Birmingham'] = get_incidence_br("E08000025")
     #dict['Edinburgh'] = get_incidence_br("S12000036")
     
-
     return dict
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
-    suchdic1 = ["dortmund", "essen", "berlin","muenchen","hamburg","koeln","frankfurt","stuttgart","duesseldorf","bremen","dresden","erfurt","hannover","kiel","magdeburg","mainz","potsdam","saarbrücken","schwerin","wiesbaden"
-                "manchester","leeds", "glasgow","sheffield" , "nottingham","newcastleUponTyne", "portsmouth","london", "cardiff", "belfast", "liverpool" , "birmingham" , "edinburgh"]
-
+    suchdic1 = ["Dortmund", "Essen", "Berlin","Muenchen","Hamburg","Koeln","Frankfurt","Stuttgart","Duesseldorf","Bremen","Dresden","Erfurt","Hannover","Kiel","Magdeburg","Mainz","Potsdam","Saarbruecken","Schwerin","Wiesbaden"
+                "Manchester","Leeds", "Glasgow","Sheffield" , "Nottingham","NewcastleUponTyne", "Portsmouth","London", "Cardiff", "Belfast", "Liverpool" , "Birmingham" , "Edinburgh"]
 
     if request.method == 'POST':
+
         suchwort = request.form['input1']
         #suchwort = key.lower().replace("ä","ae").replace("ö","oe").replace("ü","ue")
         suchwort2 = request.form['input2']
-       # suchwort2 = key.lower().replace("ä","ae").replace("ö","oe").replace("ü","ue")
+        #suchwort2 = key.lower().replace("ä","ae").replace("ö","oe").replace("ü","ue")
         cursor = mysql.connection.cursor()
+
+        error1 = None
+        error2 = None
+
+        if suchwort not in suchdic1:
+           error1 = 'Stadt 1 nicht gültig'
+
+        if suchwort2 not in suchdic1:
+           error2 = 'Stadt 2 nicht gültig'
+
+        if error1 or error2:
+            return render_template('homepage.html', error1=error1, error2=error2,suchdic1=suchdic1,suchwort2=suchwort2,suchwort=suchwort)
+
 
         select_incidence= f"SELECT * FROM inzidenzen_{suchwort}"
         cursor.execute(select_incidence)
@@ -137,20 +149,7 @@ def homepage():
         ywerte = [y1, y2]
 
 
-
-        error1 = None
-        error2 = None
-
-        if suchwort not in suchdic1:
-           error1 = 'Stadt 1 nicht gültig'
-
-        if suchwort2 not in suchdic1:
-           error2 = 'Stadt 2 nicht gültig'
-
-        if error1 or error2:
-            return render_template('homepage.html', error1=error1, error2=error2, suchwort=suchwort, suchwort2=suchwort2)
-
-        return render_template('homepage.html', suchwort=suchwort, suchwort2=suchwort2,ywerte=ywerte,xwerte=xwerte,
+        return render_template('homepage.html', suchwort=suchwort, suchwort2=suchwort2, ywerte=ywerte, xwerte=xwerte,
                                  inzlist2=inzlist2, inzlist1=inzlist1,neulist=neulist,suchdic1=suchdic1)
 
     else:
@@ -161,8 +160,6 @@ def homepage():
 def index():
 
     cursor = mysql.connection.cursor()
-
-
     today = datetime.today().strftime('%Y-%m-%d')
     cursor=mysql.connection.cursor()
 
@@ -332,9 +329,9 @@ def index():
     duesseldorf_inz=cursor.fetchall()
 
 
-    map = folium.Map(location=[51,3], zoom_start=5)
+    map = folium.Map(location=[51,3], zoom_start=2)
     folium.Marker(location=[52.523430,13.411440], popups="Berlin", tooltip={'Berlin', berlin_inz}).add_to(map)
-    folium.Marker(location=[48.1371079,11.5753822], popups="München", tooltip={'München', muenchen_inz}).add_to(map)
+    folium.Marker(location=[48.1371079,11.5753822], popups="muenchen", tooltip={'München', muenchen_inz}).add_to(map)
     folium.Marker(location=[53.550341,10.000654], popups="Hamburg", tooltip={'Hamburg', hamburg_inz}).add_to(map)
     folium.Marker(location=[50.938361,6.959974], popups="Köln", tooltip={'Köln', koeln_inz}).add_to(map)
     folium.Marker(location=[50.1106444,8.6820917], popups="Frankfurt", tooltip={'Frankfurt', frankfurt_inz}).add_to(map)
@@ -342,6 +339,18 @@ def index():
     folium.Marker(location=[51.2254018,6.7763137], popups="Düsseldorf", tooltip={'Düsseldorf', duesseldorf_inz}).add_to(map)
     folium.Marker(location=[51.5142273,7.4652789], popups="Dortmund", tooltip={'Dortmund',dortmund_inz }).add_to(map)
     folium.Marker(location=[51.4582235,7.0158171], popups="Essen", tooltip={'Essen', essen_inz}).add_to(map)
+    folium.Marker(location=[53.6288297,11.4148038], popups="Schwerin", tooltip={'Schwerin', schwerin_inz}).add_to(map)
+    folium.Marker(location=[54.3227085,10.135555], popups="Kiel", tooltip={'Kiel', kiel_inz}).add_to(map)
+    folium.Marker(location=[49.234362,6.996379], popups="Saarbrücken", tooltip={'Saarbrücken', saarbruecken_inz}).add_to(map)
+    folium.Marker(location=[50.0820384,8.2416556], popups="Wiesbaden", tooltip={'Wiesbaden', wiesbaden_inz}).add_to(map)
+    folium.Marker(location=[52.4009309,13.0591397], popups="Potsdam", tooltip={'Potsdam', potsdam_inz}).add_to(map)
+    folium.Marker(location=[50.0012314,50.0012314], popups="Mainz", tooltip={'Mainz', mainz_inz}).add_to(map)
+    folium.Marker(location=[51.0493286,13.7381437], popups="Dresden", tooltip={'Dresden', dresden_inz}).add_to(map)
+    folium.Marker(location=[53.0758196,8.8071646], popups="Bremen", tooltip={'Bremen', bremen_inz}).add_to(map)
+    folium.Marker(location=[52.3744779,9.7385532], popups="Hannover", tooltip={'Hannover',hannover_inz}).add_to(map)
+
+   #Magdeburg
+   #Erfurt
 
     folium.Marker(location=[53.480709, -2.234380], popups="Manchester", tooltip={'Manchester', manchester_inz}).add_to(map)
     folium.Marker(location=[53.799690, -1.549100], popups="Leeds", tooltip={'Leeds', leeds_inz}).add_to(map)
@@ -354,10 +363,14 @@ def index():
     folium.Marker(location=[52.4796992, -1.9026911], popups="Birmingham", tooltip={'Birmingham', birmingham_inz }).add_to(map)
     folium.Marker(location=[55.9533456, -3.1883749], popups="Edinburgh", tooltip={'Edinburgh', edinburgh_inz}).add_to(map)
     folium.Marker(location=[51.5073219, -0.1276474], popups="London", tooltip={'London', london_inz}).add_to(map)
+    folium.Marker(location=[50.8036831, -1.075614], popups="Portsmouth", tooltip={'Portsmouth', portsmouth_inz}).add_to(map)
+    folium.Marker(location=[55.116825103759766, -1.9396450519561768], popups="NewcastleUponTyne", tooltip={'Newcastle Upon Tyne', newcastleupontyne_inz}).add_to(map)
+
+
 
 
     map.save('templates/map.html')
-    return render_template('homepage.html',y3=y3)
+    return render_template('homepage.html')
 
 
 @app.route('/map')
