@@ -142,42 +142,46 @@ def homepage():
 
 @app.route("/")
 def index():
-
-    cursor = mysql.connection.cursor()
-    today = datetime.today().strftime('%Y-%m-%d')
     cursor=mysql.connection.cursor()
+    today = datetime.today().strftime('%Y-%m-%d')
+    cursor =mysql.connection.cursor()
 
     select_inzidenzen = f"SELECT essen.datum, essen.inzidenz as essen WHERE datum=%s LIMIT 1"
     cursor.execute(select_inzidenzen, ({today}))
     cursor.commit()
     essen_inz=cursor.fetchall()
 
+    cursor=mysql.connection.cursor()
     select_inzidenzen = f"SELECT wiesbaden.datum, wiesbaden.inzidenz as wiesbaden WHERE datum=%s LIMIT 1"
     cursor.execute(select_inzidenzen, ({today}))
     cursor.commit()
     wiesbaden_inz=cursor.fetchall()
 
+    cursor=mysql.connection.cursor()
     select_inzidenzen = f"SELECT stuttgart.datum, stuttgart.inzidenz as stuttgart WHERE datum=%s LIMIT 1"
     cursor.execute(select_inzidenzen, ({today}))
     cursor.commit()
     stuttgart_inz=cursor.fetchall()
 
+    cursor=mysql.connection.cursor()
     select_inzidenzen = f"SELECT schwerin.datum, schwerin.inzidenz as schwerin WHERE datum=%s LIMIT 1"
     cursor.execute(select_inzidenzen, ({today}))
     cursor.commit()
     schwerin_inz=cursor.fetchall()
 
+    cursor=mysql.connection.cursor()
     select_inzidenzen = f"SELECT berlin.datum, berlin.inzidenz as berlin WHERE datum=%s LIMIT 1"
     cursor.execute(select_inzidenzen, ({today}))
     cursor.commit()
     berlin_inz=cursor.fetchall()
 
-
+    cursor=mysql.connection.cursor()
     select_inzidenzen = f"SELECT saarbruecken.datum, saarbruecken.inzidenz as saarbruecken WHERE datum=%s LIMIT 1"
     cursor.execute(select_inzidenzen, ({today}))
     cursor.commit()
     saarbruecken_inz=cursor.fetchall()
 
+    cursor=mysql.connection.cursor()
     select_inzidenzen = f"SELECT potsdam.datum, potsdam.inzidenz as potsdam WHERE datum=%s LIMIT 1"
     cursor.execute(select_inzidenzen, ({today}))
     cursor.commit()
@@ -349,8 +353,6 @@ def index():
     folium.Marker(location=[51.5073219, -0.1276474], popups="London", tooltip={'London', london_inz}).add_to(map)
     folium.Marker(location=[50.8036831, -1.075614], popups="Portsmouth", tooltip={'Portsmouth', portsmouth_inz}).add_to(map)
     folium.Marker(location=[55.116825103759766, -1.9396450519561768], popups="NewcastleUponTyne", tooltip={'Newcastle Upon Tyne', newcastleupontyne_inz}).add_to(map)
-
-
 
 
     map.save('templates/map.html')
