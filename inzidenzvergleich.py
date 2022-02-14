@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request
-from flask_mysqldb import MySQL
-from datetime import datetime, timedelta
 import requests, json
 import folium
+from flask import Flask, render_template, request
+from requests import get
+from flask_mysqldb import MySQL
+from datetime import datetime, timedelta
+from json import dumps
 
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
@@ -32,56 +34,69 @@ def get_incidence(city_id):
 
 
 
-#def tableGetDate():
-    #ToDo: Implement Database Call
+def get_incidence_br(city_id):
+    
+    if city_id == "E12000007":
+        AREA_TYPE = "region"
+    else:
+        AREA_TYPE = "ltla"
+        
+    ENDPOINT = "https://api.coronavirus.data.gov.uk/v1/data"
+    AREA_CODE = city_id;
 
-    #return "1.1.2011"
+    filters = [
+         f"areaType={AREA_TYPE}",
+         f"areaCode={AREA_CODE}"
+
+    ]
+
+    structure = {
+
+        "dailyCases" : "newCasesByPublishDate",
+    }
+
+    api_params = {
+        "filters": str.join(";", filters),
+        "structure": dumps(structure, separators=(",", ":")),
+     "latestBy": "cumCasesByPublishDate"
+    }
+
+    api_params["format"] = "json"
+    response = get(ENDPOINT, params=api_params, timeout=10)
+    assert response.status_code == 200, f"Failed request for json: {response.text}"
+    json_content = response.json()
+    print(" ")
+    print(json_content["data"][0]["dailyCases"]) 
 
 
-
-def getBigCities():
-    berlin = get_incidence(11)
-    munich = get_incidence(9162)
-    hamburg= get_incidence(2000)
-    cologne = get_incidence(5315)
-    frankfurt = get_incidence(6412)
-    stuttgart = get_incidence(8111)
-    duesseldorf = get_incidence(5111)
-    dortmund = get_incidence(5913)
-    essen = get_incidence(5113)
-
+def get_big_cities():
     dict={}
-    dict['Berlin'] =berlin
-    dict['München'] = munich
-    dict['Hamburg'] = hamburg
-    dict['Köln'] = cologne
-    dict['Frankfurt'] = frankfurt
-    dict['Stuttgart'] = stuttgart
-    dict['Düsseldorf'] = duesseldorf
-    dict['Dortmund'] = dortmund
-    dict['Essen'] = essen
+    dict['Berlin'] = get_incidence(11)
+    dict['München'] = get_incidence(9162)
+    dict['Hamburg'] = get_incidence(2000)
+    dict['Köln'] = get_incidence(5315)
+    dict['Frankfurt'] = get_incidence(6412)
+    dict['Stuttgart'] = get_incidence(8111)
+    dict['Düsseldorf'] = get_incidence(5111)
+    dict['Dortmund'] = get_incidence(5913)
+    dict['Essen'] = get_incidence(5113)
+
+    dict['Manchester'] = get_incidence_br("E08000003")
+    dict['Leeds'] = get_incidence_br("E08000035")
+    #dict['Glasgow'] = get_incidence_br("S12000049")
+    dict['Sheffield'] = get_incidence_br("E08000019")
+    dict['Nottingham'] = get_incidence_br("E06000018")
+    dict['NewcastleUponTyne'] = get_incidence_br("E08000021")
+    dict['Portsmouth'] = get_incidence_br("E06000044")
+    dict['London'] = get_incidence_br("E12000007")
+    dict['Cardiff'] = get_incidence_br("W06000015")
+    dict['Belfast'] = get_incidence_br("N09000003")
+    dict['Liverpool'] = get_incidence_br("E08000012")
+    dict['Birmingham'] = get_incidence_br("E08000025")
+    #dict['Edinburgh'] = get_incidence_br("S12000036")
+    
 
     return dict
-
-city_dict = getBigCities()
-
-def city_search(city1, city2):
-    list = []
-
-    for key, value in city_dict.items():
-        if city1 in key:
-            list.append(city1)
-            list.append(value)
-
-        if city2 in key:
-            list.append(city2)
-            list.append(value)
-
-    return list
-
-
-suchdic1 = ["dortmund", "essen", "berlin","münchen","hamburg","köln","frankfurt","stuttgart","düsseldorf","bremen","dresden","erfurt","hannover","kiel","magdeburg","mainz","potsdam","saarbrücken","schwerin","wiesbaden"
-                "manchester","leeds", "glasgow","sheffield" , "nottingham","newcastleUponTyne", "portsmouth","london", "cardiff", "belfast", "liverpool" , "birmingham" , "edinburgh"]
 
 @app.route("/", methods=['GET', 'POST'])
 def homepage():
@@ -141,6 +156,7 @@ def homepage():
     else:
 
         return render_template('homepage.html',suchdic1=suchdic1)
+
 @app.route("/")
 def index():
 
@@ -347,18 +363,19 @@ def index():
 @app.route('/map')
 def map():
     return render_template('map.html')
+    
 @app.cli.command()    
 def refresh_tables():
     """Refresh the tables from APIs"""
-    city_dict = getBigCities()
+    city_dict = get_big_cities()
     cur = mysql.connection.cursor()
     today = datetime.today().strftime('%Y-%m-%d')
     delete_date = (datetime.today() - timedelta(7)).strftime('%Y-%m-%d')
     for key, value in city_dict.items():
         table_city = key.lower().replace("ä","ae").replace("ö","oe").replace("ü","ue") #aus Städtenamen Tabellennamen machen
-        query = f"INSERT INTO inzidenzen_deutschland_{table_city} (datum, inzidenz) VALUES (%s, %s)"
+        query = f"INSERT INTO inzidenzen_{table_city} (datum, inzidenz) VALUES (%s, %s)"
         cur.execute(query, ({today}, {str(value)}))
-        query_delete = f"DELETE FROM inzidenzen_deutschland_{table_city} WHERE datum < %s"
+        query_delete = f"DELETE FROM inzidenzen_{table_city} WHERE datum < %s"
         cur.execute(query_delete, ({delete_date}))
         mysql.connection.commit()
 
