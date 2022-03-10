@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 06. Jan 2022 um 11:46
+-- Erstellungszeit: 10. Feb 2022 um 09:39
 -- Server-Version: 10.4.22-MariaDB
 -- PHP-Version: 8.0.13
 
@@ -26,525 +26,599 @@ USE `inzidenzen`;
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_berlin`
+-- Tabellenstruktur für Tabelle `inzidenzen_belfast`
 --
 
-CREATE TABLE `inzidenzen_deutschland_berlin` (
+CREATE TABLE `inzidenzen_belfast` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_berlin`
---
-
-INSERT INTO `inzidenzen_deutschland_berlin` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_berlin_mitte`
+-- Tabellenstruktur für Tabelle `inzidenzen_berlin`
 --
 
-CREATE TABLE `inzidenzen_deutschland_berlin_mitte` (
+CREATE TABLE `inzidenzen_berlin` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_berlin_mitte`
---
-
-INSERT INTO `inzidenzen_deutschland_berlin_mitte` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_bremen`
+-- Tabellenstruktur für Tabelle `inzidenzen_birmingham`
 --
 
-CREATE TABLE `inzidenzen_deutschland_bremen` (
+CREATE TABLE `inzidenzen_birmingham` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_bremen`
---
-
-INSERT INTO `inzidenzen_deutschland_bremen` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_dortmund`
+-- Tabellenstruktur für Tabelle `inzidenzen_bremen`
 --
 
-CREATE TABLE `inzidenzen_deutschland_dortmund` (
+CREATE TABLE `inzidenzen_bremen` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_dortmund`
---
-
-INSERT INTO `inzidenzen_deutschland_dortmund` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_dresden`
+-- Tabellenstruktur für Tabelle `inzidenzen_cardiff`
 --
 
-CREATE TABLE `inzidenzen_deutschland_dresden` (
+CREATE TABLE `inzidenzen_cardiff` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_dresden`
---
-
-INSERT INTO `inzidenzen_deutschland_dresden` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_duesseldorf`
+-- Tabellenstruktur für Tabelle `inzidenzen_dortmund`
 --
 
-CREATE TABLE `inzidenzen_deutschland_duesseldorf` (
+CREATE TABLE `inzidenzen_dortmund` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_duesseldorf`
---
-
-INSERT INTO `inzidenzen_deutschland_duesseldorf` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_erfurt`
+-- Tabellenstruktur für Tabelle `inzidenzen_dresden`
 --
 
-CREATE TABLE `inzidenzen_deutschland_erfurt` (
+CREATE TABLE `inzidenzen_dresden` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_erfurt`
---
-
-INSERT INTO `inzidenzen_deutschland_erfurt` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_essen`
---
-
-CREATE TABLE `inzidenzen_deutschland_essen` (
-  `id` int(11) NOT NULL,
-  `datum` date NOT NULL,
-  `inzidenz` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_essen`
---
-
-INSERT INTO `inzidenzen_deutschland_essen` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_frankfurt`
---
-
-CREATE TABLE `inzidenzen_deutschland_frankfurt` (
-  `id` int(11) NOT NULL,
-  `datum` date NOT NULL,
-  `inzidenz` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_frankfurt`
---
-
-INSERT INTO `inzidenzen_deutschland_frankfurt` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_hamburg`
+-- Tabellenstruktur für Tabelle `inzidenzen_duesseldorf`
 --
 
-CREATE TABLE `inzidenzen_deutschland_hamburg` (
+CREATE TABLE `inzidenzen_duesseldorf` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_hamburg`
---
-
-INSERT INTO `inzidenzen_deutschland_hamburg` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_hannover`
+-- Tabellenstruktur für Tabelle `inzidenzen_edinburgh`
 --
 
-CREATE TABLE `inzidenzen_deutschland_hannover` (
+CREATE TABLE `inzidenzen_edinburgh` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_hannover`
---
-
-INSERT INTO `inzidenzen_deutschland_hannover` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_kiel`
+-- Tabellenstruktur für Tabelle `inzidenzen_erfurt`
 --
 
-CREATE TABLE `inzidenzen_deutschland_kiel` (
+CREATE TABLE `inzidenzen_erfurt` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_kiel`
---
-
-INSERT INTO `inzidenzen_deutschland_kiel` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_koeln`
+-- Tabellenstruktur für Tabelle `inzidenzen_essen`
 --
 
-CREATE TABLE `inzidenzen_deutschland_koeln` (
+CREATE TABLE `inzidenzen_essen` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_koeln`
---
-
-INSERT INTO `inzidenzen_deutschland_koeln` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_magdeburg`
+-- Tabellenstruktur für Tabelle `inzidenzen_frankfurt`
 --
 
-CREATE TABLE `inzidenzen_deutschland_magdeburg` (
+CREATE TABLE `inzidenzen_frankfurt` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_magdeburg`
---
-
-INSERT INTO `inzidenzen_deutschland_magdeburg` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_mainz`
+-- Tabellenstruktur für Tabelle `inzidenzen_glasgow`
 --
 
-CREATE TABLE `inzidenzen_deutschland_mainz` (
+CREATE TABLE `inzidenzen_glasgow` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_mainz`
---
-
-INSERT INTO `inzidenzen_deutschland_mainz` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_muenchen`
---
-
-CREATE TABLE `inzidenzen_deutschland_muenchen` (
-  `id` int(11) NOT NULL,
-  `datum` date NOT NULL,
-  `inzidenz` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_muenchen`
---
-
-INSERT INTO `inzidenzen_deutschland_muenchen` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_potsdam`
+-- Tabellenstruktur für Tabelle `inzidenzen_hamburg`
 --
 
-CREATE TABLE `inzidenzen_deutschland_potsdam` (
+CREATE TABLE `inzidenzen_hamburg` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_potsdam`
---
-
-INSERT INTO `inzidenzen_deutschland_potsdam` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_saarbruecken`
---
-
-CREATE TABLE `inzidenzen_deutschland_saarbruecken` (
-  `id` int(11) NOT NULL,
-  `datum` date NOT NULL,
-  `inzidenz` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_saarbruecken`
---
-
-INSERT INTO `inzidenzen_deutschland_saarbruecken` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_schwerin`
---
-
-CREATE TABLE `inzidenzen_deutschland_schwerin` (
-  `id` int(11) NOT NULL,
-  `datum` date NOT NULL,
-  `inzidenz` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_schwerin`
---
-
-INSERT INTO `inzidenzen_deutschland_schwerin` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_stuttgart`
+-- Tabellenstruktur für Tabelle `inzidenzen_hannover`
 --
 
-CREATE TABLE `inzidenzen_deutschland_stuttgart` (
+CREATE TABLE `inzidenzen_hannover` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Daten für Tabelle `inzidenzen_deutschland_stuttgart`
---
-
-INSERT INTO `inzidenzen_deutschland_stuttgart` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `inzidenzen_deutschland_wiesbaden`
+-- Tabellenstruktur für Tabelle `inzidenzen_kiel`
 --
 
-CREATE TABLE `inzidenzen_deutschland_wiesbaden` (
+CREATE TABLE `inzidenzen_kiel` (
   `id` int(11) NOT NULL,
   `datum` date NOT NULL,
   `inzidenz` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Daten für Tabelle `inzidenzen_deutschland_wiesbaden`
+-- Tabellenstruktur für Tabelle `inzidenzen_koeln`
 --
 
-INSERT INTO `inzidenzen_deutschland_wiesbaden` (`id`, `datum`, `inzidenz`) VALUES
-(1, '2000-01-01', 111.1);
+CREATE TABLE `inzidenzen_koeln` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_leeds`
+--
+
+CREATE TABLE `inzidenzen_leeds` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_liverpool`
+--
+
+CREATE TABLE `inzidenzen_liverpool` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_london`
+--
+
+CREATE TABLE `inzidenzen_london` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_magdeburg`
+--
+
+CREATE TABLE `inzidenzen_magdeburg` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_mainz`
+--
+
+CREATE TABLE `inzidenzen_mainz` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_manchester`
+--
+
+CREATE TABLE `inzidenzen_manchester` (
+  `id` int(11) NOT NULL,
+  `Datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_muenchen`
+--
+
+CREATE TABLE `inzidenzen_muenchen` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_newcastleupontyne`
+--
+
+CREATE TABLE `inzidenzen_newcastleupontyne` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_nottingham`
+--
+
+CREATE TABLE `inzidenzen_nottingham` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_portsmouth`
+--
+
+CREATE TABLE `inzidenzen_portsmouth` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_potsdam`
+--
+
+CREATE TABLE `inzidenzen_potsdam` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_saarbruecken`
+--
+
+CREATE TABLE `inzidenzen_saarbruecken` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_schwerin`
+--
+
+CREATE TABLE `inzidenzen_schwerin` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_sheffield`
+--
+
+CREATE TABLE `inzidenzen_sheffield` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_stuttgart`
+--
+
+CREATE TABLE `inzidenzen_stuttgart` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `inzidenzen_wiesbaden`
+--
+
+CREATE TABLE `inzidenzen_wiesbaden` (
+  `id` int(11) NOT NULL,
+  `datum` date NOT NULL,
+  `inzidenz` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indizes der exportierten Tabellen
 --
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_berlin`
+-- Indizes für die Tabelle `inzidenzen_belfast`
 --
-ALTER TABLE `inzidenzen_deutschland_berlin`
+ALTER TABLE `inzidenzen_belfast`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_berlin_mitte`
+-- Indizes für die Tabelle `inzidenzen_berlin`
 --
-ALTER TABLE `inzidenzen_deutschland_berlin_mitte`
+ALTER TABLE `inzidenzen_berlin`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_bremen`
+-- Indizes für die Tabelle `inzidenzen_birmingham`
 --
-ALTER TABLE `inzidenzen_deutschland_bremen`
+ALTER TABLE `inzidenzen_birmingham`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_dortmund`
+-- Indizes für die Tabelle `inzidenzen_bremen`
 --
-ALTER TABLE `inzidenzen_deutschland_dortmund`
+ALTER TABLE `inzidenzen_bremen`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_dresden`
+-- Indizes für die Tabelle `inzidenzen_cardiff`
 --
-ALTER TABLE `inzidenzen_deutschland_dresden`
+ALTER TABLE `inzidenzen_cardiff`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_duesseldorf`
+-- Indizes für die Tabelle `inzidenzen_dortmund`
 --
-ALTER TABLE `inzidenzen_deutschland_duesseldorf`
+ALTER TABLE `inzidenzen_dortmund`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_erfurt`
+-- Indizes für die Tabelle `inzidenzen_dresden`
 --
-ALTER TABLE `inzidenzen_deutschland_erfurt`
+ALTER TABLE `inzidenzen_dresden`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_essen`
+-- Indizes für die Tabelle `inzidenzen_duesseldorf`
 --
-ALTER TABLE `inzidenzen_deutschland_essen`
+ALTER TABLE `inzidenzen_duesseldorf`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_frankfurt`
+-- Indizes für die Tabelle `inzidenzen_edinburgh`
 --
-ALTER TABLE `inzidenzen_deutschland_frankfurt`
+ALTER TABLE `inzidenzen_edinburgh`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_hamburg`
+-- Indizes für die Tabelle `inzidenzen_erfurt`
 --
-ALTER TABLE `inzidenzen_deutschland_hamburg`
+ALTER TABLE `inzidenzen_erfurt`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_hannover`
+-- Indizes für die Tabelle `inzidenzen_essen`
 --
-ALTER TABLE `inzidenzen_deutschland_hannover`
+ALTER TABLE `inzidenzen_essen`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_kiel`
+-- Indizes für die Tabelle `inzidenzen_frankfurt`
 --
-ALTER TABLE `inzidenzen_deutschland_kiel`
+ALTER TABLE `inzidenzen_frankfurt`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_koeln`
+-- Indizes für die Tabelle `inzidenzen_glasgow`
 --
-ALTER TABLE `inzidenzen_deutschland_koeln`
+ALTER TABLE `inzidenzen_glasgow`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_magdeburg`
+-- Indizes für die Tabelle `inzidenzen_hamburg`
 --
-ALTER TABLE `inzidenzen_deutschland_magdeburg`
+ALTER TABLE `inzidenzen_hamburg`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_mainz`
+-- Indizes für die Tabelle `inzidenzen_hannover`
 --
-ALTER TABLE `inzidenzen_deutschland_mainz`
+ALTER TABLE `inzidenzen_hannover`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_muenchen`
+-- Indizes für die Tabelle `inzidenzen_kiel`
 --
-ALTER TABLE `inzidenzen_deutschland_muenchen`
+ALTER TABLE `inzidenzen_kiel`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_potsdam`
+-- Indizes für die Tabelle `inzidenzen_koeln`
 --
-ALTER TABLE `inzidenzen_deutschland_potsdam`
+ALTER TABLE `inzidenzen_koeln`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_saarbruecken`
+-- Indizes für die Tabelle `inzidenzen_leeds`
 --
-ALTER TABLE `inzidenzen_deutschland_saarbruecken`
+ALTER TABLE `inzidenzen_leeds`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_schwerin`
+-- Indizes für die Tabelle `inzidenzen_liverpool`
 --
-ALTER TABLE `inzidenzen_deutschland_schwerin`
+ALTER TABLE `inzidenzen_liverpool`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_stuttgart`
+-- Indizes für die Tabelle `inzidenzen_london`
 --
-ALTER TABLE `inzidenzen_deutschland_stuttgart`
+ALTER TABLE `inzidenzen_london`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indizes für die Tabelle `inzidenzen_deutschland_wiesbaden`
+-- Indizes für die Tabelle `inzidenzen_magdeburg`
 --
-ALTER TABLE `inzidenzen_deutschland_wiesbaden`
+ALTER TABLE `inzidenzen_magdeburg`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `inzidenzen_mainz`
+--
+ALTER TABLE `inzidenzen_mainz`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `inzidenzen_manchester`
+--
+ALTER TABLE `inzidenzen_manchester`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `inzidenzen_muenchen`
+--
+ALTER TABLE `inzidenzen_muenchen`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `inzidenzen_newcastleupontyne`
+--
+ALTER TABLE `inzidenzen_newcastleupontyne`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `inzidenzen_nottingham`
+--
+ALTER TABLE `inzidenzen_nottingham`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `inzidenzen_portsmouth`
+--
+ALTER TABLE `inzidenzen_portsmouth`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `inzidenzen_potsdam`
+--
+ALTER TABLE `inzidenzen_potsdam`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `inzidenzen_saarbruecken`
+--
+ALTER TABLE `inzidenzen_saarbruecken`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `inzidenzen_schwerin`
+--
+ALTER TABLE `inzidenzen_schwerin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `inzidenzen_sheffield`
+--
+ALTER TABLE `inzidenzen_sheffield`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `inzidenzen_stuttgart`
+--
+ALTER TABLE `inzidenzen_stuttgart`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `inzidenzen_wiesbaden`
+--
+ALTER TABLE `inzidenzen_wiesbaden`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -552,130 +626,202 @@ ALTER TABLE `inzidenzen_deutschland_wiesbaden`
 --
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_berlin`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_belfast`
 --
-ALTER TABLE `inzidenzen_deutschland_berlin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+ALTER TABLE `inzidenzen_belfast`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_berlin_mitte`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_berlin`
 --
-ALTER TABLE `inzidenzen_deutschland_berlin_mitte`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+ALTER TABLE `inzidenzen_berlin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_bremen`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_birmingham`
 --
-ALTER TABLE `inzidenzen_deutschland_bremen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `inzidenzen_birmingham`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_dortmund`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_bremen`
 --
-ALTER TABLE `inzidenzen_deutschland_dortmund`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+ALTER TABLE `inzidenzen_bremen`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_dresden`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_cardiff`
 --
-ALTER TABLE `inzidenzen_deutschland_dresden`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `inzidenzen_cardiff`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_duesseldorf`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_dortmund`
 --
-ALTER TABLE `inzidenzen_deutschland_duesseldorf`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+ALTER TABLE `inzidenzen_dortmund`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_erfurt`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_dresden`
 --
-ALTER TABLE `inzidenzen_deutschland_erfurt`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `inzidenzen_dresden`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_essen`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_duesseldorf`
 --
-ALTER TABLE `inzidenzen_deutschland_essen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+ALTER TABLE `inzidenzen_duesseldorf`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_frankfurt`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_edinburgh`
 --
-ALTER TABLE `inzidenzen_deutschland_frankfurt`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+ALTER TABLE `inzidenzen_edinburgh`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_hamburg`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_erfurt`
 --
-ALTER TABLE `inzidenzen_deutschland_hamburg`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+ALTER TABLE `inzidenzen_erfurt`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_hannover`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_essen`
 --
-ALTER TABLE `inzidenzen_deutschland_hannover`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `inzidenzen_essen`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_kiel`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_frankfurt`
 --
-ALTER TABLE `inzidenzen_deutschland_kiel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `inzidenzen_frankfurt`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_koeln`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_glasgow`
 --
-ALTER TABLE `inzidenzen_deutschland_koeln`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+ALTER TABLE `inzidenzen_glasgow`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_magdeburg`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_hamburg`
 --
-ALTER TABLE `inzidenzen_deutschland_magdeburg`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `inzidenzen_hamburg`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_mainz`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_hannover`
 --
-ALTER TABLE `inzidenzen_deutschland_mainz`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `inzidenzen_hannover`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_muenchen`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_kiel`
 --
-ALTER TABLE `inzidenzen_deutschland_muenchen`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+ALTER TABLE `inzidenzen_kiel`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_potsdam`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_koeln`
 --
-ALTER TABLE `inzidenzen_deutschland_potsdam`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `inzidenzen_koeln`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_saarbruecken`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_leeds`
 --
-ALTER TABLE `inzidenzen_deutschland_saarbruecken`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `inzidenzen_leeds`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_schwerin`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_liverpool`
 --
-ALTER TABLE `inzidenzen_deutschland_schwerin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `inzidenzen_liverpool`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_stuttgart`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_london`
 --
-ALTER TABLE `inzidenzen_deutschland_stuttgart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+ALTER TABLE `inzidenzen_london`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT für Tabelle `inzidenzen_deutschland_wiesbaden`
+-- AUTO_INCREMENT für Tabelle `inzidenzen_magdeburg`
 --
-ALTER TABLE `inzidenzen_deutschland_wiesbaden`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `inzidenzen_magdeburg`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `inzidenzen_mainz`
+--
+ALTER TABLE `inzidenzen_mainz`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `inzidenzen_manchester`
+--
+ALTER TABLE `inzidenzen_manchester`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `inzidenzen_muenchen`
+--
+ALTER TABLE `inzidenzen_muenchen`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `inzidenzen_newcastleupontyne`
+--
+ALTER TABLE `inzidenzen_newcastleupontyne`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `inzidenzen_nottingham`
+--
+ALTER TABLE `inzidenzen_nottingham`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `inzidenzen_portsmouth`
+--
+ALTER TABLE `inzidenzen_portsmouth`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `inzidenzen_potsdam`
+--
+ALTER TABLE `inzidenzen_potsdam`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `inzidenzen_saarbruecken`
+--
+ALTER TABLE `inzidenzen_saarbruecken`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `inzidenzen_schwerin`
+--
+ALTER TABLE `inzidenzen_schwerin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `inzidenzen_sheffield`
+--
+ALTER TABLE `inzidenzen_sheffield`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `inzidenzen_stuttgart`
+--
+ALTER TABLE `inzidenzen_stuttgart`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `inzidenzen_wiesbaden`
+--
+ALTER TABLE `inzidenzen_wiesbaden`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
